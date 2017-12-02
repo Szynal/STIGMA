@@ -1,0 +1,120 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1576613510898946}
+  m_IsPrefabParent: 1
+--- !u!1 &1576613510898946
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4032447879189156}
+  - component: {fileID: 114697123496467084}
+  - component: {fileID: 60379944366294610}
+  - component: {fileID: 50052975090645294}
+  m_Layer: 10
+  m_Name: SwordCollider2d
+  m_TagString: SwordAttack
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4032447879189156
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576613510898946}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.36, y: 0.09, z: 0}
+  m_LocalScale: {x: 0.53002495, y: 0.55792135, z: 0.55792135}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50052975090645294
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576613510898946}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 1
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
+--- !u!60 &60379944366294610
+PolygonCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576613510898946}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 1.4487469, y: 0.7030665}
+      - {x: 1.4547652, y: 1.1732681}
+      - {x: 1.2134455, y: 1.728832}
+      - {x: 1.0573047, y: 2.0281174}
+      - {x: 0.7798649, y: 2.2286642}
+      - {x: 0.41493833, y: 2.4430637}
+      - {x: 0.0030218363, y: 2.6121755}
+      - {x: -0.36809546, y: 2.6959717}
+      - {x: -0.45171547, y: 2.7059174}
+      - {x: -0.84841377, y: 2.7638643}
+      - {x: -1.6199546, y: 2.4535418}
+      - {x: -1.6356378, y: 2.4768233}
+      - {x: -0.95105654, y: 0.30901697}
+      - {x: -0.92009115, y: -1.1191697}
+      - {x: -0.8362065, y: -2.417075}
+      - {x: -0.32725483, y: -1.960176}
+      - {x: 0.22525752, y: -1.4283767}
+      - {x: 0.7650157, y: -0.8090172}
+      - {x: 1.1127579, y: -0.22085857}
+      - {x: 1.3055167, y: 0.109633446}
+--- !u!114 &114697123496467084
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1576613510898946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f49a570fe152d5468d0855fb28c4610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DMG: 70

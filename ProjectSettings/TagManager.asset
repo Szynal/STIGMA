@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Spells
+  - SwordAttack
+  - Platform
+  - Button
+  - Background
+  - AdditionalElement
+  - PlayZone
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - Player
+  - Ground
+  - Attacks
+  - Spells
+  - Button
+  - Background
+  - PlayZone
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Background
+    uniqueID: 2187205397
+    locked: 0
+  - name: Ground
+    uniqueID: 1996196203
+    locked: 0
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 1113847713
+    locked: 0
+  - name: Button
+    uniqueID: 4258281943
+    locked: 0
+  - name: Canvas
+    uniqueID: 484727093
+    locked: 0
