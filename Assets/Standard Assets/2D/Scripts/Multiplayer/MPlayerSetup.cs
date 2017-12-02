@@ -2,7 +2,6 @@
 using UnityEngine.Networking;
 
 [RequireComponent(typeof(MPlayer))]
-[RequireComponent(typeof(MPlayerController))]
 public class MPlayerSetup : NetworkBehaviour
 {
 
