@@ -56,9 +56,9 @@ namespace UnityStandardAssets._2D
             {
                 _Character.CmdSpell2();
             }
-            if (Input.GetButtonDown(_Attack) && _Character._PullOutSword == true && _Character.GetComponent<MultiplayerPlayerAttacks>()._CanAttack == true)
+            if (Input.GetButtonDown(_Attack) && _Character._PullOutSword == true && _Character.GetComponent<MPlayerAttacks>()._CanAttack == true)
             {
-                _Character.GetComponent<MultiplayerPlayerAttacks>().Attack();
+                _Character.GetComponent<MPlayerAttacks>().CmdSwordAttack();
             }
         }
 

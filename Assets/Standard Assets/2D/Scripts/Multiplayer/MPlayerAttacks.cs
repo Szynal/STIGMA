@@ -15,15 +15,15 @@ public class MPlayerAttacks : NetworkBehaviour
     public float _NextSpell { get; private set; }
     private float _Spell_1Rate = 1F;
 
-  
 
     [SerializeField] public Collider2D idleAttackCollider;
     [SerializeField] public Collider2D jumpAttackCollider;
     private const float _WeaponAttackCast = 0.5F;
-    private bool _CanAttack = true;
+    public bool _CanAttack { get; private set; }
 
     private void Awake()
     {
+        _CanAttack = true;
         idleAttackCollider.enabled = false;
         jumpAttackCollider.enabled = false;
     }
@@ -90,12 +90,13 @@ public class MPlayerAttacks : NetworkBehaviour
     [ClientRpc]
     public void RpcSwordAttack()
     {
-        if (gameObject.GetComponent<MPlayer>()._PullOutSword == true )
+        if (gameObject.GetComponent<MPlayer>()._PullOutSword == true && _CanAttack == true)
         {
 
             if (GetComponent<MPlayerMovement>()._Grounded == true)
             {
                 idleAttackCollider.enabled = true;  // activate idle Attacking Collider
+
             }
             if (GetComponent<MPlayerMovement>()._Grounded == false)
             {
@@ -103,9 +104,8 @@ public class MPlayerAttacks : NetworkBehaviour
             }
 
             GetComponent<Animator>().SetTrigger("Attacking");
-          //  StartCoroutine(CanAttack());
+            StartCoroutine(Attack());
         }
-      
     }
 
 
@@ -115,8 +115,8 @@ public class MPlayerAttacks : NetworkBehaviour
         RpcSwordAttack();
     }
 
-    /*
-    IEnumerator CanAttack()
+
+    IEnumerator Attack()
     {
         _CanAttack = false;
         yield return new WaitForSeconds(_WeaponAttackCast);
@@ -124,6 +124,6 @@ public class MPlayerAttacks : NetworkBehaviour
         idleAttackCollider.enabled = false;
         jumpAttackCollider.enabled = false;
     }
-    */
+
 
 }
