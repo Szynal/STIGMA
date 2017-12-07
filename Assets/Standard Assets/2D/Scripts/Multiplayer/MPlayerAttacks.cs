@@ -111,7 +111,7 @@ public class MPlayerAttacks : NetworkBehaviour
 
     [Command]
     public void CmdSwordAttack()
-    {
+    {        
         RpcSwordAttack();
     }
 

@@ -8,10 +8,9 @@ public class MPlayerController : MonoBehaviour
     [SerializeField] private String _Jump;              //   INPUT 
     [SerializeField] private String _GetAxis;           //   INPUT  
     [SerializeField] private String _PullOutWeapon;     //   INPUT  
-    [SerializeField] private String _Skill1;                //   INPUT 
-    [SerializeField] private String _Skill2;                //   INPUT 
-    [SerializeField] private String _WeaponAttack;          //   INPUT 
-
+    [SerializeField] private String _Skill1;            //   INPUT 
+    [SerializeField] private String _Skill2;            //   INPUT 
+    [SerializeField] private String _WeaponAttack;      //   INPUT 
     [SerializeField] public float _JumpForce;
     // Component caching
     private MPlayerMovement _Movment;
@@ -74,7 +73,7 @@ public class MPlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(_WeaponAttack))
         {
-            GetComponent<MPlayerAttacks>().CmdSwordAttack();
+          //  GetComponent<MPlayerAttacks>().CmdSwordAttack();
         }
 
     }
