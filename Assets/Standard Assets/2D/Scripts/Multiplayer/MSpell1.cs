@@ -55,7 +55,7 @@ public class MSpell1 : NetworkBehaviour
         {
             if (other.gameObject.GetComponent<NetworkIdentity>().netId.ToString() != sourceID)
             {
-                //other.gameObject.GetComponent<MPlayer>().CmdTake_HP(demage);
+                other.gameObject.GetComponent<MPlayer>().CmdTakeDamage(demage);
                 Destroy(gameObject);
             }
         }

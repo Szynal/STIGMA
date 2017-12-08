@@ -100,22 +100,17 @@ public class MPlayer : NetworkBehaviour
         _Animator.SetBool("PullingOutSword", _PullOutSword);
     }
 
+    [Command]
+    public void CmdTakeDamage(float amount)
+    {
+        RpcTakeDamage(amount);
+    }
+
 
     [ClientRpc]
-    public void RpcTakeDamage(int _amount, string _sourceID)
-    {/*
-        if (isDead)
-            return;
-
-        currentHealth -= _amount;
-
-        Debug.Log(transform.name + " now has " + currentHealth + " health.");
-
-        if (currentHealth <= 0)
-        {
-            Die(_sourceID);
-        }
-        */
+    public void RpcTakeDamage(float amount)
+    {
+        _HP -= amount;
     }
 
     private void Die(string _sourceID)
