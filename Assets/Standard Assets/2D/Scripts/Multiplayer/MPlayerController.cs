@@ -71,7 +71,7 @@ public class MPlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(_Skill2))
         {
-            GetComponent<MPlayerAttacks>().Spell2();
+            GetComponent<MPlayerAttacks>().CmdSpell2();
         }
 
         if (Input.GetButtonDown(_WeaponAttack))

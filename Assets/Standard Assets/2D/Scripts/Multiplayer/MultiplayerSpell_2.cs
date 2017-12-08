@@ -17,9 +17,11 @@ public class MultiplayerSpell_2 : NetworkBehaviour
 
     private void Start()
     {
+        sourceID = transform.parent.GetComponent<NetworkIdentity>().netId.ToString();
         _spell_2_Animator = GetComponent<Animator>();
        // _spellPower = transform.parent.GetComponent<MPlayerAttacks>()._SpellPower;
         transform.gameObject.name = "Water Imposion [Player " + sourceID + "]";
+        transform.parent = transform.parent.transform.parent;
         if (_spellPower == 4F) _spellPower = 3f;
 
         Demage = Demage * _spellPower;
