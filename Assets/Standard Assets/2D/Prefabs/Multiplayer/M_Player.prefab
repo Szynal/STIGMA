@@ -574,7 +574,7 @@ MonoBehaviour:
   waterImplosion: {fileID: 1968728458806824, guid: 945a8ff2b4eb8194d90f89a8e0322ef1,
     type: 2}
   diraction: {fileID: 4139582532993374}
-  _SpellPower: 3
+  spellPower: 1
   idleAttackCollider: {fileID: 60159976743770776}
   jumpAttackCollider: {fileID: 58119123980819988}
 --- !u!114 &114719650190078210
@@ -594,6 +594,9 @@ MonoBehaviour:
   _Skill1: Skill_1_P1
   _Skill2: Skill_2_P1
   _WeaponAttack: Attack_P1
+  _SpellPower_1: Spell_Power_1_P1
+  _SpellPower_2: Spell_Power_2_P1
+  _SpellPower_3: Spell_Power_3_P1
   _JumpForce: 17
 --- !u!114 &114746452553350878
 MonoBehaviour:

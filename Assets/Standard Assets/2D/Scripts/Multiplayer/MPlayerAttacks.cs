@@ -11,7 +11,7 @@ public class MPlayerAttacks : NetworkBehaviour
 
     public Transform diraction;         // Check In which direction the player moves.
 
-    [SyncVar] public float _SpellPower;
+    public float spellPower = 1F;
     public float _NextSpell { get; private set; }
     private float _Spell_1Rate = 1F;
 

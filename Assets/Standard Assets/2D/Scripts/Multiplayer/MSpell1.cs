@@ -7,20 +7,18 @@ public class MSpell1 : NetworkBehaviour
 {
     [SerializeField] public int costOfUseSpell;
     [SerializeField] float demage;
-    private float _SpellPower = 1F;
     private Animator _Spell_1Animator;
     [SerializeField] public float spell_1Speed = 15F;
     [SerializeField] public string sourceID;
     private float directionCheck;
+    private float _SpellPower = 1F;
 
     void Start()
     {
+        _SpellPower = transform.parent.GetComponent<MPlayerAttacks>().spellPower;
         sourceID = transform.parent.GetComponent<NetworkIdentity>().netId.ToString();
         transform.gameObject.name = "Water Ball [Player " + sourceID + "]";
         _Spell_1Animator = GetComponent<Animator>();
-        _SpellPower = transform.parent.GetComponent<MPlayerAttacks>()._SpellPower;
-        if (_SpellPower == 4F) _SpellPower = 3f;
-
         if (GetComponent<Transform>().transform.localScale == new Vector3(-1.0F, 1.0F, 1.0F)) // Fllip Spell (like player diraction)
         {
             directionCheck = -1;

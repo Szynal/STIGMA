@@ -11,6 +11,9 @@ public class MPlayerController : MonoBehaviour
     [SerializeField] private String _Skill1;            //   INPUT 
     [SerializeField] private String _Skill2;            //   INPUT 
     [SerializeField] private String _WeaponAttack;      //   INPUT 
+    [SerializeField] private String _SpellPower_1;       //   INPUT 
+    [SerializeField] private String _SpellPower_2;       //   INPUT 
+    [SerializeField] private String _SpellPower_3;       //   INPUT 
     [SerializeField] public float _JumpForce;
     // Component caching
     private MPlayerMovement _Movment;
@@ -74,6 +77,20 @@ public class MPlayerController : MonoBehaviour
         if (Input.GetButtonDown(_WeaponAttack))
         {
             GetComponent<MPlayerAttacks>().SwordAttack();
+        }
+
+
+        if (Input.GetButtonDown(_SpellPower_1))
+        {
+            GetComponent<MPlayerAttacks>().spellPower = 1F;
+        }
+        if (Input.GetButtonDown(_SpellPower_2))
+        {
+            GetComponent<MPlayerAttacks>().spellPower = 2F;
+        }
+        if (Input.GetButtonDown(_SpellPower_3))
+        {
+            GetComponent<MPlayerAttacks>().spellPower = 3F;
         }
 
     }
