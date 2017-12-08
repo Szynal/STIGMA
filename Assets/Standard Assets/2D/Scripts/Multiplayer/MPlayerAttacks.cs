@@ -43,40 +43,24 @@ public class MPlayerAttacks : NetworkBehaviour
     {
         RpcCastSpell1();
     }
-    /*
+
+
     [ClientRpc]
-    public void RpcCastSpell1()
+    public void RpcSpell2()
     {
-        CmdCastSpell1();
+        GetComponent<Animator>().SetTrigger("Cast");
+        _NextSpell = Time.time + _Spell_1Rate;
+        GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
+        NetworkServer.Spawn(waterImplosionInstance);
+        
+
+        //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MultiplayerSpell_2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
     }
-    */
 
     [Command]
     public void CmdSpell2()
     {
-        GetComponent<Animator>().SetTrigger("Cast");
-        _NextSpell = Time.time + _Spell_1Rate;
-        GameObject waterImplosionInstance = (GameObject)Instantiate(waterImplosion, diraction.position, diraction.rotation); //Creating an spell - object clone. Clone inherits from GameMaster class;
-        NetworkServer.Spawn(waterImplosionInstance);
-        RpcGetSpell2Id(waterImplosionInstance);
-
-        //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MultiplayerSpell_2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
-    }
-    [ClientRpc]
-    public void RpcGetSpell2Id(GameObject spell2)
-    {
-        spell2.GetComponent<MultiplayerSpell_2>().sourceID = GetComponent<NetworkIdentity>().netId.ToString();
-    }
-
-
-    [Client]
-    public void Spell2()
-    {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-        CmdSpell2();
+        RpcSpell2();
     }
 
     private bool SetIdleAttackColider()
