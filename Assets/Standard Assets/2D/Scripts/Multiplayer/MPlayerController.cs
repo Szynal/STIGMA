@@ -72,9 +72,8 @@ public class MPlayerController : MonoBehaviour
         }
 
         if (Input.GetButtonDown(_WeaponAttack))
-        {         
-            
-
+        {
+           GetComponent<MPlayerAttacks>().SwordAttack();
         }
 
     }

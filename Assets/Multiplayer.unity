@@ -1813,7 +1813,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1654809683}
   - component: {fileID: 1654809682}
-  - component: {fileID: 1654809681}
   m_Layer: 14
   m_Name: PlayZone
   m_TagString: PlayZone
@@ -1821,17 +1820,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1654809681
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1654809680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e61b204c019d71045b0abbe9977a1cfd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &1654809682
 BoxCollider2D:
   m_ObjectHideFlags: 0

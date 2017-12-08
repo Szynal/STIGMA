@@ -86,7 +86,7 @@ public class MPlayerAttacks : NetworkBehaviour
         }
         CmdSpell2();
     }
-
+      
     private bool SetIdleAttackColider()
     {
         if (gameObject.GetComponent<MPlayer>()._PullOutSword == true && _CanAttack == true && GetComponent<MPlayerMovement>()._Grounded == true)
@@ -108,21 +108,26 @@ public class MPlayerAttacks : NetworkBehaviour
     [ClientRpc]
     public void RpcSwordAttack(bool idleActivator, bool jumpActivator)
     {
+      //  if (_CanAttack == true && GetComponent<MPlayer>()._PullOutSword == true)
+        {
+            idleAttackCollider.enabled = idleActivator;  // activate ilde attack colider
+            jumpAttackCollider.enabled = jumpActivator; // activate jump attack colider
 
-        idleAttackCollider.enabled = idleActivator;  // activate ilde attack colider
-        jumpAttackCollider.enabled = jumpActivator; // activate jump attack colider
-
-        GetComponent<Animator>().SetTrigger("Attacking");
-        StartCoroutine(Attack());
-
+            GetComponent<Animator>().SetTrigger("Attacking");
+            StartCoroutine(Attack());
+        }
     }
-
-
-
+    
     [Command]
     public void CmdSwordAttack(bool idleActivator, bool jumpActivator)
     {
         RpcSwordAttack(idleActivator, jumpActivator);
+    }
+
+
+    public void SwordAttack()
+    {
+        CmdSwordAttack(SetIdleAttackColider(),SetJumpAttackColider());
     }
 
 
