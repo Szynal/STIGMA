@@ -52,7 +52,7 @@ public class MPlayerAttacks : NetworkBehaviour
         _NextSpell = Time.time + _Spell_1Rate;
         GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
         NetworkServer.Spawn(waterImplosionInstance);
-        
+
 
         //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MultiplayerSpell_2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
     }
@@ -114,6 +114,18 @@ public class MPlayerAttacks : NetworkBehaviour
         _CanAttack = true;
         idleAttackCollider.enabled = false;
         jumpAttackCollider.enabled = false;
+    }
+
+    [Command]
+    public void CmdSetSpellPower(float spellPower)
+    {
+        RpcSetSpellPower(spellPower);
+    }
+
+    [ClientRpc]
+    public void RpcSetSpellPower(float spellPower)
+    {
+        this.spellPower = spellPower;
     }
 
 

@@ -82,15 +82,15 @@ public class MPlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(_SpellPower_1))
         {
-            GetComponent<MPlayerAttacks>().spellPower = 1F;
+            GetComponent<MPlayerAttacks>().CmdSetSpellPower(1F);
         }
         if (Input.GetButtonDown(_SpellPower_2))
         {
-            GetComponent<MPlayerAttacks>().spellPower = 2F;
+            GetComponent<MPlayerAttacks>().CmdSetSpellPower(2F);
         }
         if (Input.GetButtonDown(_SpellPower_3))
         {
-            GetComponent<MPlayerAttacks>().spellPower = 3F;
+            GetComponent<MPlayerAttacks>().CmdSetSpellPower(3F);
         }
 
     }
