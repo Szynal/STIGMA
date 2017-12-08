@@ -54,7 +54,7 @@ public class MPlayerAttacks : NetworkBehaviour
         NetworkServer.Spawn(waterImplosionInstance);
         
 
-        //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MultiplayerSpell_2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
+        //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MSpell2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
     }
 
     [Command]
