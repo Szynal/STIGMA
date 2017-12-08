@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
     private const string _PlayerIdPrefix = "Player ";
     private static Dictionary<string, MPlayer> players = new Dictionary<string, MPlayer>();
-    public static Dictionary<string, MultiplayerSpell_1> spells = new Dictionary<string, MultiplayerSpell_1>();
+    public static Dictionary<string, MSpell1> spells = new Dictionary<string, MSpell1>();
 
     void Awake()
     {

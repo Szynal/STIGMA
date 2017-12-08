@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityStandardAssets._2D;
 using UnityEngine.Networking;
 
-public class MultiplayerSpell_1 : NetworkBehaviour
+public class MSpell1 : NetworkBehaviour
 {
-
     [SerializeField] public int costOfUseSpell;
     [SerializeField] float demage;
     private float _SpellPower = 1F;
@@ -14,10 +12,12 @@ public class MultiplayerSpell_1 : NetworkBehaviour
     [SerializeField] public float spell_1Speed = 15F;
     [SerializeField] public string sourceID;
     private float directionCheck;
-    private void Start()
+
+    void Start()
     {
         sourceID = transform.parent.GetComponent<NetworkIdentity>().netId.ToString();
         transform.gameObject.name = "Water Ball [Player " + sourceID + "]";
+        _Spell_1Animator = GetComponent<Animator>();
         _SpellPower = transform.parent.GetComponent<MPlayerAttacks>()._SpellPower;
         if (_SpellPower == 4F) _SpellPower = 3f;
 
@@ -30,10 +30,10 @@ public class MultiplayerSpell_1 : NetworkBehaviour
         transform.parent = transform.parent.transform.parent;
         demage = demage * _SpellPower;
         GetComponent<CircleCollider2D>().radius *= _SpellPower / 2;
-        _Spell_1Animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
         if (directionCheck == -1) // Fllip Spell (like player diraction)
         {
@@ -62,5 +62,4 @@ public class MultiplayerSpell_1 : NetworkBehaviour
             }
         }
     }
-
 }

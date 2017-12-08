@@ -63,7 +63,7 @@ public class MPlayerController : MonoBehaviour
         //     do zrobienia cooldown przy spellach 1,2 ect....
         if (Input.GetButtonDown(_Skill1))
         {
-            GetComponent<MPlayerAttacks>().Spell1();
+            GetComponent<MPlayerAttacks>().CmdCastSpell1();
         }
 
         if (Input.GetButtonDown(_Skill2))
@@ -73,7 +73,7 @@ public class MPlayerController : MonoBehaviour
 
         if (Input.GetButtonDown(_WeaponAttack))
         {
-           GetComponent<MPlayerAttacks>().SwordAttack();
+            GetComponent<MPlayerAttacks>().SwordAttack();
         }
 
     }

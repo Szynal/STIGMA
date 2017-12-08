@@ -24,8 +24,9 @@ GameObject:
   - component: {fileID: 58901182548679862}
   - component: {fileID: 95893134553891318}
   - component: {fileID: 114328252735542988}
-  - component: {fileID: 114539103483358146}
   - component: {fileID: 114439720304035332}
+  - component: {fileID: 114983600829913536}
+  - component: {fileID: 114784828513230656}
   m_Layer: 11
   m_Name: M_WaterBall
   m_TagString: Spells
@@ -141,16 +142,15 @@ MonoBehaviour:
   m_Script: {fileID: 1590678366, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Animator: {fileID: 95626531952691158, guid: dcfa9c3bff793924185d91ec496aee3b,
-    type: 2}
-  m_ParameterSendBits: 0
+  m_Animator: {fileID: 95893134553891318}
+  m_ParameterSendBits: 129
   param0: 
   param1: 
   param2: 
   param3: 
   param4: 
   param5: 
---- !u!114 &114539103483358146
+--- !u!114 &114784828513230656
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -158,7 +158,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1271738514500872}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fe5977a4599aaf4c8760e9525b1f741, type: 3}
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 2
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 1
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 1
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
+--- !u!114 &114983600829913536
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1271738514500872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cd04fb7b07473941804877379ca1f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   costOfUseSpell: 5

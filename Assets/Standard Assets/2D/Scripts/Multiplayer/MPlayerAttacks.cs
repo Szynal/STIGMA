@@ -28,36 +28,28 @@ public class MPlayerAttacks : NetworkBehaviour
         jumpAttackCollider.enabled = false;
     }
 
-    [Command]
-    public void CmdSpell1()
+    [ClientRpc]
+    public void RpcCastSpell1()
     {
         waterBall.GetComponent<Transform>().localScale = this.GetComponent<Transform>().localScale;
         GetComponent<Animator>().SetTrigger("Shoot");
         _NextSpell = Time.time + _Spell_1Rate;
         GameObject waterBallInstance = Instantiate(waterBall, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class (transform.parent) ;
-        GameManager dictionarySpell = new GameManager();
         NetworkServer.Spawn(waterBallInstance);
-        RpcGetSpell1Id(waterBallInstance);
-
-        // GetComponent<MPlayer>()._MANA -= waterBall.GetComponent<MultiplayerSpell_1>().costOfUseSpell * _SpellPower;  // Reduce mana points;
     }
+
+    [Command]
+    public void CmdCastSpell1()
+    {
+        RpcCastSpell1();
+    }
+    /*
     [ClientRpc]
-    public void RpcGetSpell1Id(GameObject spell1)
+    public void RpcCastSpell1()
     {
-        spell1.GetComponent<MultiplayerSpell_1>().sourceID = GetComponent<NetworkIdentity>().netId.ToString();
+        CmdCastSpell1();
     }
-
-
-    [Client]
-    public void Spell1()
-    {
-        if (!isLocalPlayer)
-        {
-            return;
-        }
-        CmdSpell1();
-    }
-
+    */
 
     [Command]
     public void CmdSpell2()
@@ -86,7 +78,7 @@ public class MPlayerAttacks : NetworkBehaviour
         }
         CmdSpell2();
     }
-      
+
     private bool SetIdleAttackColider()
     {
         if (gameObject.GetComponent<MPlayer>()._PullOutSword == true && _CanAttack == true && GetComponent<MPlayerMovement>()._Grounded == true)
@@ -108,16 +100,13 @@ public class MPlayerAttacks : NetworkBehaviour
     [ClientRpc]
     public void RpcSwordAttack(bool idleActivator, bool jumpActivator)
     {
-      //  if (_CanAttack == true && GetComponent<MPlayer>()._PullOutSword == true)
-        {
-            idleAttackCollider.enabled = idleActivator;  // activate ilde attack colider
-            jumpAttackCollider.enabled = jumpActivator; // activate jump attack colider
+        idleAttackCollider.enabled = idleActivator;  // activate ilde attack colider
+        jumpAttackCollider.enabled = jumpActivator; // activate jump attack colider
 
-            GetComponent<Animator>().SetTrigger("Attacking");
-            StartCoroutine(Attack());
-        }
+        GetComponent<Animator>().SetTrigger("Attacking");
+        StartCoroutine(Attack());
     }
-    
+
     [Command]
     public void CmdSwordAttack(bool idleActivator, bool jumpActivator)
     {
@@ -127,7 +116,10 @@ public class MPlayerAttacks : NetworkBehaviour
 
     public void SwordAttack()
     {
-        CmdSwordAttack(SetIdleAttackColider(),SetJumpAttackColider());
+        if (_CanAttack == true && GetComponent<MPlayer>()._PullOutSword == true)
+        {
+            CmdSwordAttack(SetIdleAttackColider(), SetJumpAttackColider());
+        }
     }
 
 
