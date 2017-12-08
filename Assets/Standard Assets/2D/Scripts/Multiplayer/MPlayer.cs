@@ -56,6 +56,7 @@ public class MPlayer : NetworkBehaviour
     private void Start()
     {
         _Animator = GetComponent<Animator>();
+        transform.name = "Player " + GetComponent<NetworkIdentity>().netId.ToString();
     }
 
     public void SetupPlayer()
