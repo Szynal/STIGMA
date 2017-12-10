@@ -19,7 +19,7 @@ public class MSpell2 : NetworkBehaviour
     {
         sourceID = transform.parent.GetComponent<NetworkIdentity>().netId.ToString();
         _spell_2_Animator = GetComponent<Animator>();
-       // _spellPower = transform.parent.GetComponent<MPlayerAttacks>()._SpellPower;
+        // _spellPower = transform.parent.GetComponent<MPlayerAttacks>()._SpellPower;
         transform.gameObject.name = "Water Imposion [Player " + sourceID + "]";
         transform.parent = transform.parent.transform.parent;
         if (_spellPower == 4F) _spellPower = 3f;
@@ -27,9 +27,9 @@ public class MSpell2 : NetworkBehaviour
         Demage = Demage * _spellPower;
         GetComponent<Transform>().localScale = new Vector3(_spellPower, _spellPower, _spellPower);
         GetComponent<CircleCollider2D>().radius *= _spellPower / 2;
-
         StartCoroutine(Destroy());
     }
+        
 
     private void Update()
     {

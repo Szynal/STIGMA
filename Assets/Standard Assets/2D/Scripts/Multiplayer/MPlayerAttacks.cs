@@ -28,6 +28,12 @@ public class MPlayerAttacks : NetworkBehaviour
         jumpAttackCollider.enabled = false;
     }
 
+    [Command]
+    public void CmdCastSpell1()
+    {
+        RpcCastSpell1();
+    }
+
     [ClientRpc]
     public void RpcCastSpell1()
     {
@@ -35,24 +41,23 @@ public class MPlayerAttacks : NetworkBehaviour
         GetComponent<Animator>().SetTrigger("Shoot");
         _NextSpell = Time.time + _Spell_1Rate;
         GameObject waterBallInstance = Instantiate(waterBall, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class (transform.parent) ;
-        NetworkServer.Spawn(waterBallInstance);
-    }
-
-    [Command]
-    public void CmdCastSpell1()
-    {
-        RpcCastSpell1();
     }
 
 
     [ClientRpc]
     public void RpcSpell2()
     {
-        GetComponent<Animator>().SetTrigger("Cast");
-        _NextSpell = Time.time + _Spell_1Rate;
-        GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
-        NetworkServer.Spawn(waterImplosionInstance);
-
+        if (isServer && isClient)
+        {
+            return;
+        }
+        else if (!isServer && isClient)
+        {
+            GetComponent<Animator>().SetTrigger("Cast");
+            _NextSpell = Time.time + _Spell_1Rate;
+            GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
+            NetworkServer.Spawn(waterImplosionInstance);
+        }
 
         //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MSpell2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
     }

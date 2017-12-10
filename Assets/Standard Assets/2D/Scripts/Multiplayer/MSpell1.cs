@@ -13,7 +13,7 @@ public class MSpell1 : NetworkBehaviour
     private float directionCheck;
     private float _SpellPower = 1F;
 
-    void Start()
+    public void Start()
     {
         _SpellPower = transform.parent.GetComponent<MPlayerAttacks>().spellPower;
         sourceID = transform.parent.GetComponent<NetworkIdentity>().netId.ToString();
