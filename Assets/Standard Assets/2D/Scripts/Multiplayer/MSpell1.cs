@@ -53,11 +53,20 @@ public class MSpell1 : NetworkBehaviour
         }
         else if (other.tag == ("Player"))       // w przypadku doknięcia playera spell _1 ma zabierać HP & być uówany. 
         {
+
             if (other.gameObject.GetComponent<NetworkIdentity>().netId.ToString() != sourceID)
             {
-                other.gameObject.GetComponent<MPlayer>().CmdTakeDamage(demage);
+                TakeDamage(other);
                 Destroy(gameObject);
             }
         }
     }
+
+    [Server]
+    public void TakeDamage(Collider2D collider)
+    {
+        collider.gameObject.GetComponent<MPlayer>().CmdTakeDamage(demage);
+    }
+
 }
+
