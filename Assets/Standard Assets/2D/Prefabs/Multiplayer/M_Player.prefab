@@ -98,6 +98,8 @@ GameObject:
   - component: {fileID: 4121196488518480}
   - component: {fileID: 58119123980819988}
   - component: {fileID: 50726594088313482}
+  - component: {fileID: 114332949033414170}
+  - component: {fileID: 114351475777045376}
   m_Layer: 10
   m_Name: Collider_Jump_AttackSword
   m_TagString: SwordAttack
@@ -115,6 +117,8 @@ GameObject:
   - component: {fileID: 4645409841375566}
   - component: {fileID: 60159976743770776}
   - component: {fileID: 50788426735374186}
+  - component: {fileID: 114334919942573552}
+  - component: {fileID: 114024000191980844}
   m_Layer: 10
   m_Name: Collider_Idle_AttackSword
   m_TagString: SwordAttack
@@ -428,6 +432,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114024000191980844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984748706622340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3885c8de07b36940ac701f47d0df795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MinDMG: 40
+  _MaxDMG: 50
 --- !u!114 &114139113546672218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -512,6 +529,83 @@ MonoBehaviour:
   param3: 
   param4: 
   param5: 
+--- !u!114 &114332949033414170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847199367228348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 220
+    i1: 250
+    i2: 156
+    i3: 59
+    i4: 255
+    i5: 121
+    i6: 57
+    i7: 36
+    i8: 24
+    i9: 93
+    i10: 145
+    i11: 236
+    i12: 73
+    i13: 106
+    i14: 238
+    i15: 59
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &114334919942573552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984748706622340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 220
+    i1: 250
+    i2: 156
+    i3: 59
+    i4: 255
+    i5: 121
+    i6: 57
+    i7: 36
+    i8: 24
+    i9: 93
+    i10: 145
+    i11: 236
+    i12: 73
+    i13: 106
+    i14: 238
+    i15: 59
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+--- !u!114 &114351475777045376
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1847199367228348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3885c8de07b36940ac701f47d0df795, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _MinDMG: 45
+  _MaxDMG: 100
 --- !u!114 &114363313105218366
 MonoBehaviour:
   m_ObjectHideFlags: 1

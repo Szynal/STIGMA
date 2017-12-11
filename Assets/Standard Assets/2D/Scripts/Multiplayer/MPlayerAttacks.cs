@@ -86,7 +86,6 @@ public class MPlayerAttacks : NetworkBehaviour
             GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
             NetworkServer.Spawn(waterImplosionInstance);
         }
-
         //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MSpell2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
     }
 
