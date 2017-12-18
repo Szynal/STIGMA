@@ -75,17 +75,11 @@ public class MPlayerAttacks : NetworkBehaviour
     [ClientRpc]
     public void RpcSpell2()
     {
-        if (isServer && isClient)
-        {
-            return;
-        }
-        else if (!isServer && isClient)
-        {
+
             GetComponent<Animator>().SetTrigger("Cast");
             _NextSpell = Time.time + _Spell_1Rate;
             GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
-            NetworkServer.Spawn(waterImplosionInstance);
-        }
+
         //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MSpell2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
     }
 

@@ -18,9 +18,10 @@ public class MSpell2 : NetworkBehaviour
     private void Start()
     {
         sourceID = transform.parent.GetComponent<NetworkIdentity>().netId.ToString();
+        Physics2D.IgnoreCollision(transform.parent.GetComponent<Collider2D>(), GetComponent<Collider2D>(), true);
         _spell_2_Animator = GetComponent<Animator>();
-        // _spellPower = transform.parent.GetComponent<MPlayerAttacks>()._SpellPower;
-        transform.gameObject.name = "Water Imposion [Player " + sourceID + "]";
+        _spellPower = transform.parent.GetComponent<MPlayerAttacks>().spellPower;
+        transform.gameObject.name = "Water Implosion [Player " + sourceID + "]";
         transform.parent = transform.parent.transform.parent;
         if (_spellPower == 4F) _spellPower = 3f;
 
@@ -33,7 +34,8 @@ public class MSpell2 : NetworkBehaviour
 
     private void Update()
     {
-        CmdCastSpell_2();
+        StartCoroutine( CastSpell_2());
+       // CmdCastSpell_2();
     }
 
 
