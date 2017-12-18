@@ -9,6 +9,8 @@ public class MPlayer : NetworkBehaviour
     [SerializeField] public GameObject Canvas;
     private Animator _Animator;
 
+
+    private GameObject _HeroBar;
     [SyncVar] public float _MANA;      //  magic points
     private float _AmountOfMana;
     [SerializeField] public float showMana;
@@ -55,8 +57,9 @@ public class MPlayer : NetworkBehaviour
 
     private void Start()
     {
+        _HeroBar = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
         _Animator = GetComponent<Animator>();
-        transform.name = "Player " + GetComponent<NetworkIdentity>().netId.ToString();
+        transform.name = "Player " + GetComponent<NetworkIdentity>().netId.ToString(); 
     }
 
     public void SetupPlayer()
@@ -200,6 +203,29 @@ public class MPlayer : NetworkBehaviour
     public void RpcsyncScale(float x)
     {
         transform.localScale = new Vector3(x, 1, 1);
+    }
+
+
+    public void SetSpellPower(int power)
+    {
+        if(power == 1)
+        {
+            _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(3).gameObject.SetActive(false);
+            _HeroBar.transform.GetChild(4).gameObject.SetActive(false);
+        }
+        else if (power ==2)
+        {
+            _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(3).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(4).gameObject.SetActive(false);
+        }
+        else if (power ==3)
+        {
+            _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(3).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(4).gameObject.SetActive(true);
+        }
     }
 
 }

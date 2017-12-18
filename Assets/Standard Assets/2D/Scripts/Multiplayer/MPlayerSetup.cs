@@ -20,6 +20,7 @@ public class MPlayerSetup : NetworkBehaviour
         {
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
             GameObject.Find("Canvas").GetComponent<Canvas>().worldCamera = gameObject.transform.GetChild(4).GetComponent<Camera>();
+            GameObject.Find("Canvas").transform.GetChild(0).gameObject.SetActive(true);
         }
     }
 

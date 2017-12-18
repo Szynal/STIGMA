@@ -18,11 +18,12 @@ public class MPlayerController : MonoBehaviour
     [SerializeField] private float _Spell_1_CD;
     [SerializeField] private float _Spell_2_CD;
     [SerializeField] public float _JumpForce;
+
     // Component caching
     private MPlayerMovement _Movment;
 
-    private bool _Can_Cast_Spell_1=true;
-    private bool _Can_Cast_Spell_2 =true ;
+    private bool _Can_Cast_Spell_1 = true;
+    private bool _Can_Cast_Spell_2 = true;
 
 
     void Start()
@@ -93,21 +94,21 @@ public class MPlayerController : MonoBehaviour
             GetComponent<MPlayerAttacks>().SwordAttack();
         }
 
-
         if (Input.GetButtonDown(_SpellPower_1))
         {
+            GetComponent<MPlayer>().SetSpellPower(1);
             GetComponent<MPlayerAttacks>().CmdSetSpellPower(1F);
         }
         if (Input.GetButtonDown(_SpellPower_2))
         {
+            GetComponent<MPlayer>().SetSpellPower(2);
             GetComponent<MPlayerAttacks>().CmdSetSpellPower(2F);
         }
         if (Input.GetButtonDown(_SpellPower_3))
         {
+            GetComponent<MPlayer>().SetSpellPower(3);
             GetComponent<MPlayerAttacks>().CmdSetSpellPower(3F);
         }
-
-        
     }
 
     IEnumerator CD_Spell1()

@@ -691,7 +691,10 @@ MonoBehaviour:
   _SpellPower_1: Spell_Power_1_P1
   _SpellPower_2: Spell_Power_2_P1
   _SpellPower_3: Spell_Power_3_P1
+  _Spell_1_CD: 0
+  _Spell_2_CD: 0
   _JumpForce: 17
+  _HeroBar: {fileID: 1875467525885794, guid: cb68fd89ae72e304bb8081824928b987, type: 2}
 --- !u!114 &114746452553350878
 MonoBehaviour:
   m_ObjectHideFlags: 1
