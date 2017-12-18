@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator))]
@@ -14,9 +15,14 @@ public class MPlayerController : MonoBehaviour
     [SerializeField] private String _SpellPower_1;       //   INPUT 
     [SerializeField] private String _SpellPower_2;       //   INPUT 
     [SerializeField] private String _SpellPower_3;       //   INPUT 
+    [SerializeField] private float _Spell_1_CD;
+    [SerializeField] private float _Spell_2_CD;
     [SerializeField] public float _JumpForce;
     // Component caching
     private MPlayerMovement _Movment;
+
+    private bool _Can_Cast_Spell_1=true;
+    private bool _Can_Cast_Spell_2 =true ;
 
 
     void Start()
@@ -66,12 +72,20 @@ public class MPlayerController : MonoBehaviour
         //     do zrobienia cooldown przy spellach 1,2 ect....
         if (Input.GetButtonDown(_Skill1))
         {
-            GetComponent<MPlayerAttacks>().CmdCastSpell1();
+            if (_Can_Cast_Spell_1)
+            {
+                GetComponent<MPlayerAttacks>().CmdCastSpell1();
+                StartCoroutine(CD_Spell1());
+            }
         }
 
         if (Input.GetButtonDown(_Skill2))
         {
-            GetComponent<MPlayerAttacks>().CmdSpell2();
+            if (_Can_Cast_Spell_2)
+            {
+                GetComponent<MPlayerAttacks>().CmdSpell2();
+                StartCoroutine(CD_Spell2());
+            }
         }
 
         if (Input.GetButtonDown(_WeaponAttack))
@@ -93,5 +107,20 @@ public class MPlayerController : MonoBehaviour
             GetComponent<MPlayerAttacks>().CmdSetSpellPower(3F);
         }
 
+        
+    }
+
+    IEnumerator CD_Spell1()
+    {
+        _Can_Cast_Spell_1 = false;
+        yield return new WaitForSeconds(_Spell_1_CD);
+        _Can_Cast_Spell_1 = true;
+    }
+
+    IEnumerator CD_Spell2()
+    {
+        _Can_Cast_Spell_2 = false;
+        yield return new WaitForSeconds(_Spell_2_CD);
+        _Can_Cast_Spell_2 = true;
     }
 }
