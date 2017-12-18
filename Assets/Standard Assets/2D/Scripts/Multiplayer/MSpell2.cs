@@ -11,7 +11,7 @@ public class MSpell2 : NetworkBehaviour
     private Animator _spell_2_Animator;
 
     [SerializeField] public int CostOfUseSpell;
-    [SerializeField] float Demage;
+    [SerializeField] float Damage;
     public string sourceID;
     private float _spellPower = 1F;
 
@@ -25,7 +25,7 @@ public class MSpell2 : NetworkBehaviour
         transform.parent = transform.parent.transform.parent;
         if (_spellPower == 4F) _spellPower = 3f;
 
-        Demage = Demage * _spellPower;
+        Damage = Damage * _spellPower;
         GetComponent<Transform>().localScale = new Vector3(_spellPower, _spellPower, _spellPower);
         GetComponent<CircleCollider2D>().radius *= _spellPower / 2;
         StartCoroutine(Destroy());
@@ -71,12 +71,18 @@ public class MSpell2 : NetworkBehaviour
 
         if (sourceID != player.GetComponent<MPlayer>().netId.ToString())
         {
-            //player.CmdTake_HP(Demage);
+            TakeDamage(other);
         }
         if (sourceID == player.GetComponent<MPlayer>().netId.ToString())
         {
             Physics2D.IgnoreCollision(other.collider, GetComponent<Collider2D>(), true);
         }
 
+    }
+
+    [Server]
+    public void TakeDamage(Collision2D collider)
+    {
+        collider.gameObject.GetComponent<MPlayer>().CmdTakeDamage(Damage);
     }
 }
