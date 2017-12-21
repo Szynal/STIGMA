@@ -54,6 +54,8 @@ public class PlatformerCharacter2D : MonoBehaviour
     public GameObject waterImplosion;  // Reference to Spell_2 (water implosion)
     public Transform diraction;         // Check In which direction the player moves.
 
+    [SerializeField] public GameObject _HeroBar;
+
     private void Awake()
     {
         _AmountOfHealth = _HP;
@@ -63,6 +65,11 @@ public class PlatformerCharacter2D : MonoBehaviour
         _CeilingCheck = transform.Find("CeilingCheck");
         _Player_Animator = GetComponent<Animator>();
         _Rigidbody2D = GetComponent<Rigidbody2D>();
+        _HeroBar = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        _HeroBar.transform.GetChild(3).gameObject.SetActive(false);
+        _HeroBar.transform.GetChild(4).gameObject.SetActive(false);
+
+
     }
 
     private void Update()
@@ -81,14 +88,23 @@ public class PlatformerCharacter2D : MonoBehaviour
         if (Input.GetButtonDown(_SpellPower_1))
         {
             spellPower = 1F;
+            _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(3).gameObject.SetActive(false);
+            _HeroBar.transform.GetChild(4).gameObject.SetActive(false);
         }
         if (Input.GetButtonDown(_SpellPower_2))
         {
             spellPower = 2F;
+            _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(3).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(4).gameObject.SetActive(false);
         }
         if (Input.GetButtonDown(_SpellPower_3))
         {
             spellPower = 4F;
+            _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(3).gameObject.SetActive(true);
+            _HeroBar.transform.GetChild(4).gameObject.SetActive(true);
         }
 
         if (Input.GetButtonDown(_Skill_1) && Time.time > _NextSpell && _PullOutSword == false && _MANA >= waterBall.GetComponent<Spell_1>().costOfUseSpell * spellPower)
