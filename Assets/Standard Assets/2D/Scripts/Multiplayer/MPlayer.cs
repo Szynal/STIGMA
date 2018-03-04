@@ -1,20 +1,32 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 using System.Collections;
 
 [RequireComponent(typeof(MPlayerSetup))]
 public class MPlayer : NetworkBehaviour
 {
-    [SerializeField] private LayerMask m_WhatIsGround;   // A mask determining what is ground to the character
+    [SerializeField] private LayerMask _WhatIsGround;   // A mask determining what is ground to the character
     [SerializeField] public GameObject Canvas;
     private Animator _Animator;
 
 
     private GameObject _HeroBar;
-    [SyncVar] public float _MANA;      //  magic points
+    [SerializeField] public float AmountOfMANA = 100;
+    /// <summary>
+    /// The amount of mana regeneration per second
+    /// </summary> 
+    [SerializeField] public float ManaRegen;
+    /// <summary>
+    /// Magic points
+    /// </summary>
+    private float _Mana;
     private float _AmountOfMana;
-    [SerializeField] public float showMana;
-    private GameObject _ManaBar;  // Reference to Mana bar 
+    [SerializeField] public float ShowMana;
+    /// <summary>
+    ///  Reference to Mana bar 
+    /// </summary>
+    private GameObject _ManaBar;
 
     [SyncVar] public float _HP; // hit points / health    
     private float _AmountOfHealth;
@@ -57,9 +69,22 @@ public class MPlayer : NetworkBehaviour
 
     private void Start()
     {
+
         _HeroBar = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
+        _Mana = AmountOfMANA;
+        _HP = 1000;
         _Animator = GetComponent<Animator>();
-        transform.name = "Player " + GetComponent<NetworkIdentity>().netId.ToString(); 
+        transform.name = "Player " + GetComponent<NetworkIdentity>().netId.ToString();
+    }
+
+
+    private void Update()
+    {
+        if (_Mana < AmountOfMANA)
+        {
+            StartCoroutine("RegenMagicPoint");
+        }
+        ShowMana = _Mana;
     }
 
     public void SetupPlayer()
@@ -208,24 +233,52 @@ public class MPlayer : NetworkBehaviour
 
     public void SetSpellPower(int power)
     {
-        if(power == 1)
+        if (power == 1)
         {
             _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
             _HeroBar.transform.GetChild(3).gameObject.SetActive(false);
             _HeroBar.transform.GetChild(4).gameObject.SetActive(false);
         }
-        else if (power ==2)
+        else if (power == 2)
         {
             _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
             _HeroBar.transform.GetChild(3).gameObject.SetActive(true);
             _HeroBar.transform.GetChild(4).gameObject.SetActive(false);
         }
-        else if (power ==3)
+        else if (power == 3)
         {
             _HeroBar.transform.GetChild(2).gameObject.SetActive(true);
             _HeroBar.transform.GetChild(3).gameObject.SetActive(true);
             _HeroBar.transform.GetChild(4).gameObject.SetActive(true);
         }
+    }
+    /// <summary>
+    /// Takes (costOfUseSpell) mana and updates players manaBar
+    /// </summary>
+    /// <param name="costOfUseSpell"> </param>
+    public void TakeMana(float costOfUseSpell)
+    {
+        _Mana -= costOfUseSpell;
+        _HeroBar.transform.GetChild(1).gameObject.transform.GetComponent<Image>().fillAmount = _Mana / AmountOfMANA;
+    }
+    /// <summary>
+    ///  Checks if Player has enough mana to use spells.
+    /// </summary>
+    /// <returns></returns>
+    public bool CanCast()
+    {
+        if (_Mana > 0)
+        {
+            return true;
+        }
+        else
+            return false;
+    }
+
+    IEnumerator RegenMagicPoint() // Regeneration of magic points ( +5 MANA per one second).
+    {
+        _Mana += ManaRegen;
+        yield return new WaitForSeconds(1);
     }
 
 }

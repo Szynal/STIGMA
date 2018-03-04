@@ -65,10 +65,15 @@ public class MPlayerAttacks : NetworkBehaviour
     [ClientRpc]
     public void RpcCastSpell1()
     {
-        waterBall.GetComponent<Transform>().localScale = this.GetComponent<Transform>().localScale;
-        GetComponent<Animator>().SetTrigger("Shoot");
-        _NextSpell = Time.time + _Spell_1Rate;
-        GameObject waterBallInstance = Instantiate(waterBall, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class (transform.parent) ;
+        if (GetComponent<MPlayer>().CanCast())
+        {
+            waterBall.GetComponent<Transform>().localScale = this.GetComponent<Transform>().localScale;
+            GetComponent<Animator>().SetTrigger("Shoot");
+            _NextSpell = Time.time + _Spell_1Rate;
+            GameObject waterBallInstance = Instantiate(waterBall, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class (transform.parent) ;
+            GetComponent<MPlayer>().TakeMana(waterBallInstance.GetComponent<MSpell1>().costOfUseSpell);
+        }
+
     }
 
 
@@ -76,9 +81,9 @@ public class MPlayerAttacks : NetworkBehaviour
     public void RpcSpell2()
     {
 
-            GetComponent<Animator>().SetTrigger("Cast");
-            _NextSpell = Time.time + _Spell_1Rate;
-            GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
+        GetComponent<Animator>().SetTrigger("Cast");
+        _NextSpell = Time.time + _Spell_1Rate;
+        GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
 
         //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MSpell2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
     }
@@ -96,7 +101,7 @@ public class MPlayerAttacks : NetworkBehaviour
     {
         if (gameObject.GetComponent<MPlayer>()._PullOutSword == true && _CanAttack == true && GetComponent<MPlayerMovement>()._Grounded == true)
         {
-            return true;  
+            return true;
         }
         else return false;
     }
@@ -108,7 +113,7 @@ public class MPlayerAttacks : NetworkBehaviour
     {
         if (gameObject.GetComponent<MPlayer>()._PullOutSword == true && _CanAttack == true && GetComponent<MPlayerMovement>()._Grounded == false)
         {
-            return true;  
+            return true;
         }
         else return false;
     }

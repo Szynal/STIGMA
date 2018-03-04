@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 
 public class MSpell1 : NetworkBehaviour
 {
-    [SerializeField] public int costOfUseSpell;
+    [SerializeField] public float costOfUseSpell;
     [SerializeField] float demage;
     private Animator _Spell_1Animator;
     [SerializeField] public float spell_1Speed = 15F;

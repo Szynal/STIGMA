@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b998d35f74c0f24a9bf2315b360613f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Speed: 10
+  _Speed: 12
 --- !u!114 &114315760713223664
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -694,7 +694,6 @@ MonoBehaviour:
   _Spell_1_CD: 0
   _Spell_2_CD: 0
   _JumpForce: 17
-  _HeroBar: {fileID: 1875467525885794, guid: cb68fd89ae72e304bb8081824928b987, type: 2}
 --- !u!114 &114746452553350878
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -706,12 +705,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b8e01db0e92e234a848f80571180a8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_WhatIsGround:
+  _WhatIsGround:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 0
   Canvas: {fileID: 0}
-  _MANA: 100
-  showMana: 0
+  ShowMana: 0
   _HP: 1000
   showHp: 0
   netFacingRight: 1
