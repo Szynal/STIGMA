@@ -707,8 +707,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _WhatIsGround:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   Canvas: {fileID: 0}
+  AmountOfMANA: 100
+  ManaRegen: 1
   ShowMana: 0
   _HP: 1000
   showHp: 0

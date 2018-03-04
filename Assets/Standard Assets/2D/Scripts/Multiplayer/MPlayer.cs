@@ -80,10 +80,9 @@ public class MPlayer : NetworkBehaviour
 
     private void Update()
     {
-        if (_Mana < AmountOfMANA)
-        {
-            StartCoroutine("RegenMagicPoint");
-        }
+
+        RegenMana();
+
         ShowMana = _Mana;
     }
 
@@ -274,11 +273,27 @@ public class MPlayer : NetworkBehaviour
         else
             return false;
     }
-
-    IEnumerator RegenMagicPoint() // Regeneration of magic points ( +5 MANA per one second).
+    /// <summary>
+    ///  Regeneration of magic points ( +ManaRegen per one second).
+    /// </summary>
+    private void RegenMana()
     {
+        if (_Mana < AmountOfMANA)
+        {
+            StartCoroutine(RegenMagicPoint());
+        }
+    }
+    /// <summary>
+    ///  Regeneration of magic points ( +ManaRegen per one second).
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator RegenMagicPoint()
+    {
+        _HeroBar.transform.GetChild(1).gameObject.GetComponent<Image>().fillAmount = _Mana / AmountOfMANA;
         _Mana += ManaRegen;
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1.0F);
+
+
     }
 
 }

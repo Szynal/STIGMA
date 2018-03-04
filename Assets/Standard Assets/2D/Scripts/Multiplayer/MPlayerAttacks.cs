@@ -71,7 +71,7 @@ public class MPlayerAttacks : NetworkBehaviour
             GetComponent<Animator>().SetTrigger("Shoot");
             _NextSpell = Time.time + _Spell_1Rate;
             GameObject waterBallInstance = Instantiate(waterBall, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class (transform.parent) ;
-            GetComponent<MPlayer>().TakeMana(waterBallInstance.GetComponent<MSpell1>().costOfUseSpell);
+            GetComponent<MPlayer>().TakeMana(waterBallInstance.GetComponent<MSpell1>().costOfUseSpell * spellPower);
         }
 
     }
