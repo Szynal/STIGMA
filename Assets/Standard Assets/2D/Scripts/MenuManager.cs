@@ -5,7 +5,9 @@ using UnityEngine.SceneManagement;
 public class MenuManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject canvas;
+    GameObject Buttons;
+    [SerializeField]
+    GameObject Authors;
 
 
     private void Start()
@@ -15,36 +17,34 @@ public class MenuManager : MonoBehaviour
 
     public void MainMenu()
     {
-        for (int i = 0; i <= 4; i++)
+        for (int i = 0; i < 4; i++)
         {
-            canvas.transform.GetChild(i).gameObject.SetActive(true);
+            Buttons.transform.GetChild(i).gameObject.SetActive(true);
         }
-        canvas.transform.GetChild(5).gameObject.SetActive(false);
-        canvas.transform.GetChild(6).gameObject.SetActive(false);
-        canvas.transform.GetChild(7).gameObject.SetActive(false);
-        canvas.transform.GetChild(8).gameObject.SetActive(false);
-        canvas.transform.GetChild(9).gameObject.SetActive(false);
+
+        Buttons.transform.GetChild(4).gameObject.SetActive(false);
+        Buttons.transform.GetChild(5).gameObject.SetActive(false);
+        Buttons.transform.GetChild(6).gameObject.SetActive(false);
     }
 
 
     public void StartGame()
     {
-
-        canvas.transform.GetChild(7).gameObject.SetActive(false);
-        canvas.transform.GetChild(8).gameObject.SetActive(false);
-        for (int i = 1; i <= 4; i++)
+        for (int i = 0; i < 4; i++)
         {
-            canvas.transform.GetChild(i).gameObject.SetActive(false);
+            Buttons.transform.GetChild(i).gameObject.SetActive(false);
         }
-        canvas.transform.GetChild(5).gameObject.SetActive(true);
-        canvas.transform.GetChild(6).gameObject.SetActive(true);
-        canvas.transform.GetChild(9).gameObject.SetActive(true);
+        Buttons.transform.GetChild(4).gameObject.SetActive(true);
+        Buttons.transform.GetChild(5).gameObject.SetActive(true);
+        Buttons.transform.GetChild(6).gameObject.SetActive(true);
     }
 
-    public void Authors()
+    public void SetAuthors()
     {
-        canvas.transform.GetChild(7).gameObject.SetActive(true);
-        canvas.transform.GetChild(8).gameObject.SetActive(true);
+        for (int i = 0; i < Authors.transform.childCount; i++)
+        {
+            Authors.transform.GetChild(i).gameObject.SetActive(true);
+        }
         StartCoroutine(Enumerator());
     }
 
@@ -66,8 +66,6 @@ public class MenuManager : MonoBehaviour
     IEnumerator Enumerator()
     {
         yield return new WaitForSeconds(15.0F);
-        canvas.transform.GetChild(7).gameObject.SetActive(false);
-        canvas.transform.GetChild(8).gameObject.SetActive(false);
 
     }
 }
