@@ -10,7 +10,7 @@ public class MSpell2 : NetworkBehaviour
 
     private Animator _spell_2_Animator;
 
-    [SerializeField] public int CostOfUseSpell;
+    [SerializeField] public float costOfUseSpell;
     [SerializeField] float Damage;
     public string sourceID;
     private float _spellPower = 1F;

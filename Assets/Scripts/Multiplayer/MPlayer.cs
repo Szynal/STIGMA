@@ -20,7 +20,7 @@ public class MPlayer : NetworkBehaviour
     /// <summary>
     /// Magic points
     /// </summary>
-    private float _Mana;
+    public float _Mana;
     private float _AmountOfMana;
     private bool _manaCD = true;
     [SerializeField] public float ShowMana;
@@ -81,7 +81,7 @@ public class MPlayer : NetworkBehaviour
 
     private void Update()
     {
-
+        CanCast();
         RegenMana();
 
         ShowMana = _Mana;
@@ -267,7 +267,7 @@ public class MPlayer : NetworkBehaviour
     /// <returns></returns>
     public bool CanCast()
     {
-        if (_Mana > 0)
+        if (_Mana > 0 && !_PullOutSword)
         {
             return true;
         }

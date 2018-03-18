@@ -65,7 +65,7 @@ public class MPlayerAttacks : NetworkBehaviour
     [ClientRpc]
     public void RpcCastSpell1()
     {
-        if (GetComponent<MPlayer>().CanCast())
+        if (GetComponent<MPlayer>().CanCast() && waterBall.GetComponent<MSpell1>().costOfUseSpell * spellPower <= GetComponent<MPlayer>()._Mana)
         {
             waterBall.GetComponent<Transform>().localScale = this.GetComponent<Transform>().localScale;
             GetComponent<Animator>().SetTrigger("Shoot");
@@ -80,12 +80,14 @@ public class MPlayerAttacks : NetworkBehaviour
     [ClientRpc]
     public void RpcSpell2()
     {
-
-        GetComponent<Animator>().SetTrigger("Cast");
-        _NextSpell = Time.time + _Spell_1Rate;
-        GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
-
-        //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MSpell2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
+        if (GetComponent<MPlayer>().CanCast() && waterImplosion.GetComponent<MSpell2>().costOfUseSpell * spellPower <= GetComponent<MPlayer>()._Mana)
+        {
+            GetComponent<Animator>().SetTrigger("Cast");
+            _NextSpell = Time.time + _Spell_1Rate;
+            GameObject waterImplosionInstance = Instantiate(waterImplosion, diraction.position, diraction.rotation, this.GetComponent<Transform>()); //Creating an spell - object clone. Clone inherits from GameMaster class;
+            GetComponent<MPlayer>().TakeMana(waterImplosionInstance.GetComponent<MSpell2>().costOfUseSpell * spellPower);
+            //  GetComponent<MPlayer>()._MANA -= waterImplosion.GetComponent<MSpell2>().CostOfUseSpell * _SpellPower;  // Reduce mana points;
+        }
     }
 
     [Command]
