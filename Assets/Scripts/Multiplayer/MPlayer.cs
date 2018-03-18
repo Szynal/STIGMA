@@ -22,6 +22,7 @@ public class MPlayer : NetworkBehaviour
     /// </summary>
     private float _Mana;
     private float _AmountOfMana;
+    private bool _manaCD = true;
     [SerializeField] public float ShowMana;
     /// <summary>
     ///  Reference to Mana bar 
@@ -278,8 +279,9 @@ public class MPlayer : NetworkBehaviour
     /// </summary>
     private void RegenMana()
     {
-        if (_Mana < AmountOfMANA)
+        if (_Mana < AmountOfMANA && _manaCD)
         {
+            _manaCD = false;
             StartCoroutine(RegenMagicPoint());
         }
     }
@@ -291,7 +293,8 @@ public class MPlayer : NetworkBehaviour
     {
         _HeroBar.transform.GetChild(1).gameObject.GetComponent<Image>().fillAmount = _Mana / AmountOfMANA;
         _Mana += ManaRegen;
-        yield return new WaitForSeconds(1.0F);
+        yield return new WaitForSeconds(0.2F);
+        _manaCD = true;
 
 
     }
