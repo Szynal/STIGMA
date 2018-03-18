@@ -41,10 +41,7 @@ public class MenuManager : MonoBehaviour
 
     public void SetAuthors()
     {
-        for (int i = 0; i < Authors.transform.childCount; i++)
-        {
-            Authors.transform.GetChild(i).gameObject.SetActive(true);
-        }
+        Authors.SetActive(true);
         StartCoroutine(Enumerator());
     }
 
@@ -65,7 +62,8 @@ public class MenuManager : MonoBehaviour
 
     IEnumerator Enumerator()
     {
-        yield return new WaitForSeconds(15.0F);
+        yield return new WaitForSeconds(10.0F);
+        Authors.SetActive(false);
 
     }
 }

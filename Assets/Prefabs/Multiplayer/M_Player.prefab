@@ -99,7 +99,6 @@ GameObject:
   - component: {fileID: 58119123980819988}
   - component: {fileID: 50726594088313482}
   - component: {fileID: 114332949033414170}
-  - component: {fileID: 114351475777045376}
   m_Layer: 10
   m_Name: Collider_Jump_AttackSword
   m_TagString: SwordAttack
@@ -118,7 +117,6 @@ GameObject:
   - component: {fileID: 60159976743770776}
   - component: {fileID: 50788426735374186}
   - component: {fileID: 114334919942573552}
-  - component: {fileID: 114024000191980844}
   m_Layer: 10
   m_Name: Collider_Idle_AttackSword
   m_TagString: SwordAttack
@@ -432,19 +430,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114024000191980844
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1984748706622340}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3885c8de07b36940ac701f47d0df795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _MinDMG: 40
-  _MaxDMG: 50
 --- !u!114 &114139113546672218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -593,19 +578,6 @@ MonoBehaviour:
     i15: 59
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
---- !u!114 &114351475777045376
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1847199367228348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3885c8de07b36940ac701f47d0df795, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _MinDMG: 45
-  _MaxDMG: 100
 --- !u!114 &114363313105218366
 MonoBehaviour:
   m_ObjectHideFlags: 1
