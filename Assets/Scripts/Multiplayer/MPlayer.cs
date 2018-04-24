@@ -71,11 +71,13 @@ public class MPlayer : NetworkBehaviour
     private void Start()
     {
 
-        _HeroBar = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
-        _Mana = AmountOfMANA;
-        _HP = 1000;
+        
         _Animator = GetComponent<Animator>();
         transform.name = "Player " + GetComponent<NetworkIdentity>().netId.ToString();
+        _HeroBar = GameObject.Find("Canvas").transform.GetChild((int)GetComponent<NetworkIdentity>().netId.Value - 1).gameObject;
+        _HeroBar.SetActive(true);
+        _Mana = AmountOfMANA;
+        _HP = 1000;
     }
 
 

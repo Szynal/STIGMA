@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2477d61f0b98ca429bb753129e7417a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CostOfUseSpell: 15
+  costOfUseSpell: 10
   Damage: 10
   sourceID: 
 --- !u!212 &212500240320790654
