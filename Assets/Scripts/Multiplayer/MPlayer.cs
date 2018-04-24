@@ -12,6 +12,7 @@ public class MPlayer : NetworkBehaviour
 
 
     private GameObject _HeroBar;
+    [SerializeField] public float AmountOfHP = 1000;
     [SerializeField] public float AmountOfMANA = 100;
     /// <summary>
     /// The amount of mana regeneration per second
@@ -77,7 +78,7 @@ public class MPlayer : NetworkBehaviour
         _HeroBar = GameObject.Find("Canvas").transform.GetChild((int)GetComponent<NetworkIdentity>().netId.Value - 1).gameObject;
         _HeroBar.SetActive(true);
         _Mana = AmountOfMANA;
-        _HP = 1000;
+        _HP = AmountOfHP;
     }
 
 
@@ -141,6 +142,7 @@ public class MPlayer : NetworkBehaviour
     public void RpcTakeDamage(float amount)
     {
         _HP -= amount;
+        _HeroBar.transform.GetChild(0).gameObject.transform.GetComponent<Image>().fillAmount = _HP / AmountOfHP;
     }
 
     private void Die(string _sourceID)
