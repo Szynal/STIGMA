@@ -5,13 +5,13 @@ namespace Assets.Scripts.UI
 {
     public class PauseMenu : MonoBehaviour
     {
-        public GameObject PauseUI;
+        public GameObject UIPause;
 
         private bool paused = false;
 
         private void Start()
         {
-            PauseUI.SetActive(false);
+            UIPause.SetActive(false);
         }
 
         private void Update()
@@ -23,12 +23,12 @@ namespace Assets.Scripts.UI
 
             if (paused)
             {
-                PauseUI.SetActive(true);
+                UIPause.SetActive(true);
             }
 
             else if (!paused)
             {
-                PauseUI.SetActive(false);
+                UIPause.SetActive(false);
             }
         }
 

@@ -4,14 +4,15 @@ namespace Assets.Scripts.Singleplayer
 {
     public class Spell1 : MonoBehaviour
     {
+        public float Demage { get; set; }
+
         public GameObject Player;
         public GameMaster Gm;
         public GameObject GameMaster;
         public int NumberOfPlayer;
         public int CostOfUseSpell;
-        public float Spell1Speed = 15F;d
+        public float Spell1Speed = 15F;
 
-        private float demage;
         private float spellPower = 1F;
         private Animator spell1Animator;
 
@@ -32,7 +33,7 @@ namespace Assets.Scripts.Singleplayer
                 spellPower = 3f;
             }
 
-            demage = demage * spellPower;
+            Demage = Demage * spellPower;
             GetComponent<CircleCollider2D>().radius *= spellPower / 2;
         }
 
@@ -65,7 +66,7 @@ namespace Assets.Scripts.Singleplayer
                 PlatformerCharacter2D player = other.GetComponent<PlatformerCharacter2D>();
                 if (GetComponent<Spell1>().NumberOfPlayer != player.GetComponent<PlatformerCharacter2D>().NumberOfPlayer)
                 {
-                    player.TakeHp(demage);
+                    player.TakeHp(Demage);
                     Destroy(gameObject);
                 }
             }

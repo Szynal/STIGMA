@@ -41,14 +41,14 @@ namespace Assets.Scripts.Singleplayer
         private readonly float spell1Rate = 1F;
 
         private Animator playerAnimator;  // Reference to the player's animator component.
-        private Rigidbody2D _Rigidbody2D;  // Reference to the player's _Rigidbody2D component.
+        private Rigidbody2D rigidbody2D;  // Reference to the player's rigidbody2D component.
 
-        [SerializeField] private readonly bool airControl = true;                 // Whether or not a player can steer while jumping;
+        [SerializeField] private readonly bool airControl = true;                 // Whether or not a player can steer while Jumping;
         private bool grounded;            // Whether or not the player is grounded.
         private bool facingRight = true;  // For determining which way the player is currently facing.
-        private bool jump;                 // Checks if player is jumping
+        private bool jump;                 // Checks if player is Jumping
         private int jumpCount = 0;
-        private bool pullOutSword = false; // Checks if the sword is pulling out
+        private bool pullOutSword; // Checks if the sword is pulling out
 
         public GameObject WaterBall;       // Reference to Spell_1 (water ball)
         public GameObject WaterImplosion;  // Reference to Spell_2 (water implosion)
@@ -64,12 +64,10 @@ namespace Assets.Scripts.Singleplayer
             groundCheck = transform.Find("GroundCheck");
             ceilingCheck = transform.Find("CeilingCheck");
             playerAnimator = GetComponent<Animator>();
-            _Rigidbody2D = GetComponent<Rigidbody2D>();
+            rigidbody2D = GetComponent<Rigidbody2D>();
             HeroBar = GameObject.Find("Canvas").transform.GetChild(0).gameObject;
             HeroBar.transform.GetChild(3).gameObject.SetActive(false);
             HeroBar.transform.GetChild(4).gameObject.SetActive(false);
-
-
         }
 
         private void Update()
@@ -154,7 +152,7 @@ namespace Assets.Scripts.Singleplayer
 
             playerAnimator.SetBool("Ground", grounded);
             playerAnimator.SetBool("Jump", jump);
-            playerAnimator.SetFloat("vSpeed", _Rigidbody2D.velocity.y);
+            playerAnimator.SetFloat("vSpeed", rigidbody2D.velocity.y);
         }
 
         public void Move(float move, bool crouch, bool jump)
@@ -192,7 +190,7 @@ namespace Assets.Scripts.Singleplayer
                 playerAnimator.SetFloat("Speed", Mathf.Abs(move));
 
                 // Move the character
-                _Rigidbody2D.velocity = new Vector2(move * maxSpeed, _Rigidbody2D.velocity.y);
+                rigidbody2D.velocity = new Vector2(move * maxSpeed, rigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !facingRight)
@@ -214,7 +212,7 @@ namespace Assets.Scripts.Singleplayer
                 // Add a vertical force to the player.
                 grounded = false;
                 playerAnimator.SetBool("Ground", false);
-                _Rigidbody2D.AddForce(new Vector2(0f, jumpForce - (_Rigidbody2D.mass * (_Rigidbody2D.velocity.y / Time.deltaTime))));
+                rigidbody2D.AddForce(new Vector2(0f, jumpForce - (rigidbody2D.mass * (rigidbody2D.velocity.y / Time.deltaTime))));
             }
         }
 

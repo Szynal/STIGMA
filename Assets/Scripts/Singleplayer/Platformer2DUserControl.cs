@@ -5,11 +5,12 @@ namespace Assets.Scripts.Singleplayer
     [RequireComponent(typeof(PlatformerCharacter2D))]
     public class Platformer2DUserControl : MonoBehaviour
     {
-        private PlatformerCharacter2D character;
-        private bool jumping;
+        public bool Jumping { get; set; }
 
         public string GetAxis;
         public string Jump;
+
+        private PlatformerCharacter2D character;
 
         private void Awake()
         {
@@ -18,10 +19,10 @@ namespace Assets.Scripts.Singleplayer
 
         private void Update()
         {
-            if (!jumping)
+            if (!Jumping)
             {
                 // Read the jump input in Update so button presses aren't missed.
-                jumping = Input.GetButtonDown(Jump);
+                Jumping = Input.GetButtonDown(Jump);
             }
         }
 
@@ -31,8 +32,8 @@ namespace Assets.Scripts.Singleplayer
             float h = Input.GetAxis(GetAxis);
             // Pass all parameters to the character control script.
 
-            character.Move(h, crouch, jumping);
-            jumping = false;
+            character.Move(h, crouch, Jumping);
+            Jumping = false;
         }
     }
 }
