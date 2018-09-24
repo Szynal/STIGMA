@@ -1,59 +1,59 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine;
 
-public class PauseMenu : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-
-    public GameObject PauseUI;
-
-    private bool _Paused = false;
-
-    private void Start()
+    public class PauseMenu : MonoBehaviour
     {
-        PauseUI.SetActive(false);
-    }
+        public GameObject PauseUI;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Delete))
-        {
-            _Paused = !_Paused;
-        }
+        private bool paused = false;
 
-        if (_Paused)
-        {
-            PauseUI.SetActive(true);
-        }
-
-        else if (!_Paused)
+        private void Start()
         {
             PauseUI.SetActive(false);
         }
-    }
 
-    public void Resume()
-    {
-        _Paused = false;
-    }
-
-    public void MainMenu()
-    {
-        DestroyOnLoad();
-        SceneManager.LoadScene(0);
-    }
-
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
-    private void DestroyOnLoad()
-    {
-        if (SceneManager.GetSceneByName("Multiplayer") == SceneManager.GetActiveScene())
+        private void Update()
         {
-            Destroy(GameObject.Find("NetworkManager"));
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Delete))
+            {
+                paused = !paused;
+            }
+
+            if (paused)
+            {
+                PauseUI.SetActive(true);
+            }
+
+            else if (!paused)
+            {
+                PauseUI.SetActive(false);
+            }
+        }
+
+        public void Resume()
+        {
+            paused = false;
+        }
+
+        public void MainMenu()
+        {
+            DestroyOnLoad();
+            SceneManager.LoadScene(0);
+        }
+
+        public void Quit()
+        {
+            Application.Quit();
+        }
+
+        private void DestroyOnLoad()
+        {
+            if (SceneManager.GetSceneByName("Multiplayer") == SceneManager.GetActiveScene())
+            {
+                Destroy(GameObject.Find("NetworkManager"));
+            }
         }
     }
 }

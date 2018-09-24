@@ -1,42 +1,38 @@
-using System;
 using UnityEngine;
 
-
-namespace UnityStandardAssets._2D
+namespace Assets.Scripts.Singleplayer
 {
     [RequireComponent(typeof(PlatformerCharacter2D))]
     public class Platformer2DUserControl : MonoBehaviour
     {
-        private PlatformerCharacter2D _Character;
-        private bool _Jumping;
+        private PlatformerCharacter2D character;
+        private bool jumping;
 
-        [SerializeField] private String _GetAxis;   //   INPUT  
-        [SerializeField] private String _Jump;      //   INPUT 
+        public string GetAxis;
+        public string Jump;
 
         private void Awake()
         {
-            _Character = GetComponent<PlatformerCharacter2D>();
+            character = GetComponent<PlatformerCharacter2D>();
         }
-
 
         private void Update()
         {
-            if (!_Jumping)
+            if (!jumping)
             {
                 // Read the jump input in Update so button presses aren't missed.
-                _Jumping = Input.GetButtonDown(_Jump);
+                jumping = Input.GetButtonDown(Jump);
             }
         }
 
         private void FixedUpdate()
         {
-            // Read the inputs.
             bool crouch = Input.GetKey(KeyCode.LeftControl);
-            float h = Input.GetAxis(_GetAxis);
+            float h = Input.GetAxis(GetAxis);
             // Pass all parameters to the character control script.
-            
-            _Character.Move(h, crouch, _Jumping);
-            _Jumping = false;
+
+            character.Move(h, crouch, jumping);
+            jumping = false;
         }
     }
 }

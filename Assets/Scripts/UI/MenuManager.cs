@@ -2,68 +2,67 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuManager : MonoBehaviour
+namespace Assets.Scripts.UI
 {
-    [SerializeField]
-    GameObject Buttons;
-    [SerializeField]
-    GameObject Authors;
-
-
-    private void Start()
+    public class MenuManager : MonoBehaviour
     {
-        MainMenu();
-    }
+        public GameObject Buttons;
+        public GameObject Authors;
 
-    public void MainMenu()
-    {
-        for (int i = 0; i < 4; i++)
+        private void Start()
         {
-            Buttons.transform.GetChild(i).gameObject.SetActive(true);
+            MainMenu();
         }
 
-        Buttons.transform.GetChild(4).gameObject.SetActive(false);
-        Buttons.transform.GetChild(5).gameObject.SetActive(false);
-        Buttons.transform.GetChild(6).gameObject.SetActive(false);
-    }
-
-
-    public void StartGame()
-    {
-        for (int i = 0; i < 4; i++)
+        public void MainMenu()
         {
-            Buttons.transform.GetChild(i).gameObject.SetActive(false);
+            for (int i = 0; i < 4; i++)
+            {
+                Buttons.transform.GetChild(i).gameObject.SetActive(true);
+            }
+
+            Buttons.transform.GetChild(4).gameObject.SetActive(false);
+            Buttons.transform.GetChild(5).gameObject.SetActive(false);
+            Buttons.transform.GetChild(6).gameObject.SetActive(false);
         }
-        Buttons.transform.GetChild(4).gameObject.SetActive(true);
-        Buttons.transform.GetChild(5).gameObject.SetActive(true);
-        Buttons.transform.GetChild(6).gameObject.SetActive(true);
-    }
 
-    public void SetAuthors()
-    {
-        Authors.SetActive(true);
-        StartCoroutine(Enumerator());
-    }
+        public void StartGame()
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                Buttons.transform.GetChild(i).gameObject.SetActive(false);
+            }
+            Buttons.transform.GetChild(4).gameObject.SetActive(true);
+            Buttons.transform.GetChild(5).gameObject.SetActive(true);
+            Buttons.transform.GetChild(6).gameObject.SetActive(true);
+        }
 
-    public void QuitGame()
-    {
-        Debug.Log("Quit the game!");
-        Application.Quit();
-    }
+        public void SetAuthors()
+        {
+            Authors.SetActive(true);
+            StartCoroutine(Enumerator());
+        }
 
-    public void StartGameSingleplayer()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-    public void StartGameMultiplayer()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
-    }
+        public void QuitGame()
+        {
+            Debug.Log("Quit the game!");
+            Application.Quit();
+        }
 
-    IEnumerator Enumerator()
-    {
-        yield return new WaitForSeconds(10.0F);
-        Authors.SetActive(false);
+        public void StartGameSingleplayer()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+        public void StartGameMultiplayer()
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 2);
+        }
 
+        private IEnumerator Enumerator()
+        {
+            yield return new WaitForSeconds(10.0F);
+            Authors.SetActive(false);
+
+        }
     }
 }

@@ -1,70 +1,73 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityStandardAssets._2D;
 
-public class Spell_2 : MonoBehaviour
+namespace Assets.Scripts.Singleplayer
 {
-
-    private Animator _Spell_2_Animator;
-    public GameMaster GM;
-    public GameObject gameMaster;
-
-    [SerializeField] int numberOfPlayer;
-    [SerializeField] public int costOfUseSpell;
-    [SerializeField] float demage;
-    private float _SpellPower = 1F;
-
-    private void Start()
+    public class Spell_2 : MonoBehaviour
     {
-        gameMaster = transform.parent.gameObject;
-        GM = gameMaster.GetComponent<GameMaster>();
-        for (int i = 0; i < GM.GetComponent<GameMaster>().listSpell_2.Count; i++)
+        public GameMaster Gm;
+        public GameObject GameMaster;
+        public int NumberOfPlayer;
+        public int CostOfUseSpell;
+        public float Demage;
+
+        private float spellPower = 1F;
+        private Animator spell2Animator;
+
+        private void Start()
         {
-            numberOfPlayer = GM.GetComponent<GameMaster>().listSpell_2[i];
-            GM.GetComponent<GameMaster>().listSpell_2.RemoveAt(i);
+            GameMaster = transform.parent.gameObject;
+            Gm = GameMaster.GetComponent<GameMaster>();
+            for (int i = 0; i < Gm.GetComponent<GameMaster>().ListSpell2.Count; i++)
+            {
+                NumberOfPlayer = Gm.GetComponent<GameMaster>().ListSpell2[i];
+                Gm.GetComponent<GameMaster>().ListSpell2.RemoveAt(i);
+            }
+
+            spellPower = Gm.transform.GetChild(NumberOfPlayer).GetComponent<PlatformerCharacter2D>().SpellPower;
+            if (spellPower == 4F)
+            {
+                spellPower = 3f;
+            }
+
+            Demage = Demage * spellPower;
+            GetComponent<Transform>().localScale = new Vector3(spellPower, spellPower, spellPower);
+            GetComponent<CircleCollider2D>().radius *= spellPower / 2;
+
+            StartCoroutine(Destroy());
+        }
+        private void Awake()
+        {
+            spell2Animator = GetComponent<Animator>();
+        }
+        private void Update()
+        {
+            StartCoroutine(CastSpell_2());
         }
 
-        _SpellPower = GM.transform.GetChild(numberOfPlayer).GetComponent<PlatformerCharacter2D>().spellPower;
-        if (_SpellPower == 4F) _SpellPower = 3f;
-
-        demage = demage * _SpellPower;
-        GetComponent<Transform>().localScale = new Vector3(_SpellPower, _SpellPower, _SpellPower);
-        GetComponent<CircleCollider2D>().radius *= _SpellPower / 2;
-
-        StartCoroutine(Destroy());
-    }
-    private void Awake()
-    {
-        _Spell_2_Animator = GetComponent<Animator>();
-    }
-    private void Update()
-    {
-        StartCoroutine(CastSpell_2());
-    }
-
-    IEnumerator CastSpell_2()
-    {
-        yield return new WaitForSeconds(0.1F);
-        gameObject.GetComponent<CircleCollider2D>().radius += 0.04F;
-    }
-    IEnumerator Destroy()
-    {
-        yield return new WaitForSeconds(1.0F);
-        Destroy(gameObject);
-    }
-
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        PlatformerCharacter2D player = other.collider.GetComponent<PlatformerCharacter2D>();
-        if (GetComponent<Spell_2>().numberOfPlayer != player.GetComponent<PlatformerCharacter2D>().numberOfPlayer)
+        private IEnumerator CastSpell_2()
         {
-            player.take_HP(demage);
+            yield return new WaitForSeconds(0.1F);
+            gameObject.GetComponent<CircleCollider2D>().radius += 0.04F;
         }
-        if (GetComponent<Spell_2>().numberOfPlayer == player.GetComponent<PlatformerCharacter2D>().numberOfPlayer)
+
+        private IEnumerator Destroy()
         {
-            Physics2D.IgnoreCollision(other.collider, GetComponent<Collider2D>(), true);
+            yield return new WaitForSeconds(1.0F);
+            Destroy(gameObject);
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            PlatformerCharacter2D player = other.collider.GetComponent<PlatformerCharacter2D>();
+            if (GetComponent<Spell_2>().NumberOfPlayer != player.GetComponent<PlatformerCharacter2D>().NumberOfPlayer)
+            {
+                player.TakeHp(Demage);
+            }
+            if (GetComponent<Spell_2>().NumberOfPlayer == player.GetComponent<PlatformerCharacter2D>().NumberOfPlayer)
+            {
+                Physics2D.IgnoreCollision(other.collider, GetComponent<Collider2D>(), true);
+            }
         }
     }
 }

@@ -1,20 +1,19 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityStandardAssets._2D;
-using System;
+﻿using UnityEngine;
 
-public class Sword_DMG : MonoBehaviour
+namespace Assets.Scripts.Singleplayer
 {
-    [SerializeField] private int _MinDMG;
-    [SerializeField] private int _MaxDMG;
-    System.Random random = new System.Random();
-
-    private void OnTriggerEnter2D(Collider2D other)
+    public class Sword_DMG : MonoBehaviour
     {
-        if (other.tag == "Player" && other.GetComponent<PlatformerCharacter2D>().numberOfPlayer != transform.parent.GetComponent<PlatformerCharacter2D>().numberOfPlayer)
+        public readonly int MinDmg;
+        public readonly int MaxDmg;
+        private System.Random random = new System.Random();
+
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            other.GetComponent<PlatformerCharacter2D>().take_HP(random.Next(_MinDMG, _MaxDMG));
+            if (other.tag == "Player" && other.GetComponent<PlatformerCharacter2D>().NumberOfPlayer != transform.parent.GetComponent<PlatformerCharacter2D>().NumberOfPlayer)
+            {
+                other.GetComponent<PlatformerCharacter2D>().TakeHp(random.Next(MinDmg, MaxDmg));
+            }
         }
     }
 }

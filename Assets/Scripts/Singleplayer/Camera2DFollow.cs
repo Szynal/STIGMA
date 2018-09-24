@@ -1,53 +1,47 @@
-using System;
 using UnityEngine;
 
-namespace UnityStandardAssets._2D
+namespace Assets.Scripts.Singleplayer
 {
     public class Camera2DFollow : MonoBehaviour
     {
-        public Transform target;
-        public float damping = 1;
-        public float lookAheadFactor = 3;
-        public float lookAheadReturnSpeed = 0.5f;
-        public float lookAheadMoveThreshold = 0.1f;
+        public Transform Target;
+        public float Damping = 1;
+        public float LookAheadFactor = 3;
+        public float LookAheadReturnSpeed = 0.5f;
+        public float LookAheadMoveThreshold = 0.1f;
 
-        private float _OffsetZ;
-        private Vector3 _LastTargetPosition;
-        private Vector3 _CurrentVelocity;
-        private Vector3 _LookAheadPos;
+        private float offsetZ;
+        private Vector3 lastTargetPosition;
+        private Vector3 currentVelocity;
+        private Vector3 lookAheadPos;
 
-        // Use this for initialization
         private void Start()
         {
-            _LastTargetPosition = target.position;
-            _OffsetZ = (transform.position - target.position).z;
+            lastTargetPosition = Target.position;
+            offsetZ = (transform.position - Target.position).z;
             transform.parent = null;
         }
 
-
-        // Update is called once per frame
         private void Update()
         {
             // only update lookahead pos if accelerating or changed direction
-            float xMoveDelta = (target.position - _LastTargetPosition).x;
-
-            bool updateLookAheadTarget = Mathf.Abs(xMoveDelta) > lookAheadMoveThreshold;
+            var xMoveDelta = (Target.position - lastTargetPosition).x;
+            bool updateLookAheadTarget = Mathf.Abs(xMoveDelta) > LookAheadMoveThreshold;
 
             if (updateLookAheadTarget)
             {
-                _LookAheadPos = lookAheadFactor*Vector3.right*Mathf.Sign(xMoveDelta);
+                lookAheadPos = LookAheadFactor * Vector3.right * Mathf.Sign(xMoveDelta);
             }
             else
             {
-                _LookAheadPos = Vector3.MoveTowards(_LookAheadPos, Vector3.zero, Time.deltaTime*lookAheadReturnSpeed);
+                lookAheadPos = Vector3.MoveTowards(lookAheadPos, Vector3.zero, Time.deltaTime * LookAheadReturnSpeed);
             }
 
-            Vector3 aheadTargetPos = target.position + _LookAheadPos + Vector3.forward*_OffsetZ;
-            Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref _CurrentVelocity, damping);
+            Vector3 aheadTargetPos = Target.position + lookAheadPos + Vector3.forward * offsetZ;
+            Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref currentVelocity, Damping);
 
             transform.position = newPos;
-
-            _LastTargetPosition = target.position;
+            lastTargetPosition = Target.position;
         }
     }
 }

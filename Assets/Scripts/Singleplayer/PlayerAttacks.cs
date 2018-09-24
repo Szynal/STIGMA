@@ -1,76 +1,95 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityStandardAssets._2D;
 
-[RequireComponent(typeof(PlatformerCharacter2D))]
-public class PlayerAttacks : MonoBehaviour
+namespace Assets.Scripts.Singleplayer
 {
-    [SerializeField] public Collider2D idleAttackCollider;
-    [SerializeField] public Collider2D jumpAttackCollider;
-    [SerializeField] public Animator animator;
-    [SerializeField] private Transform _GroundCheck;
-    [SerializeField] private LayerMask _WhatIsGround;                  // A mask determining what is ground to the character
-
-    [SerializeField] private String _Attack;
-    [SerializeField] private String _PullOutWeapon;
-
-    private Animation _Animation;
-
-    private const float _AttackCast = 0.5F;
-    const float _GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
-    const float _CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
-
-    private bool _PullOutSword = false; // Checks if the sword is pulling out
-    private bool _CanAttack = true;
-    private bool _Grounded;            // Whether or not the player is grounded.
-
-    private void Awake()
+    [RequireComponent(typeof(PlatformerCharacter2D))]
+    public class PlayerAttacks : MonoBehaviour
     {
+        [SerializeField] public Collider2D IdleAttackCollider;
+        [SerializeField] public Collider2D JumpAttackCollider;
+        [SerializeField] public Animator Animator;
+        [SerializeField] private Transform groundCheck;
+        [SerializeField] private LayerMask whatIsGround;                  // A mask determining what is ground to the character
 
-        _GroundCheck = transform.Find("GroundCheck");
-        _Animation = gameObject.GetComponent<Animation>();
-        idleAttackCollider.enabled = false;
-        jumpAttackCollider.enabled = false;
-    }
+        [SerializeField] private readonly string attack;
+        [SerializeField] private readonly string pullOutWeapon;
 
-    private void FixedUpdate()
-    {
-        _Grounded = false;
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(_GroundCheck.position, _GroundedRadius, _WhatIsGround);
-        for (int i = 0; i < colliders.Length; i++)
+        private Animation _Animation;
+
+        private const float AttackCast = 0.5F;
+        private const float GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+        private const float CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
+
+        private bool pullOutSword = false; // Checks if the sword is pulling out
+        private bool canAttack = true;
+        private bool grounded;            // Whether or not the player is grounded.
+
+        public PlayerAttacks(LayerMask whatIsGround, string attack, string pullOutWeapon)
         {
-            if (colliders[i].gameObject != gameObject)
+            this.whatIsGround = whatIsGround;
+            this.attack = attack;
+            this.pullOutWeapon = pullOutWeapon;
+        }
+
+        private void Awake()
+        {
+            groundCheck = transform.Find("GroundCheck");
+            _Animation = gameObject.GetComponent<Animation>();
+            IdleAttackCollider.enabled = false;
+            JumpAttackCollider.enabled = false;
+        }
+
+        private void FixedUpdate()
+        {
+            grounded = false;
+            Collider2D[] colliders = Physics2D.OverlapCircleAll(groundCheck.position, GroundedRadius, whatIsGround);
+            for (int i = 0; i < colliders.Length; i++)
             {
-                _Grounded = true;
+                if (colliders[i].gameObject != gameObject)
+                {
+                    grounded = true;
+                }
             }
         }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetButtonDown(_PullOutWeapon)) _PullOutSword = !_PullOutSword;
-        if (Input.GetButtonDown(_Attack) && _PullOutSword == true && _CanAttack == true)
-        {
-            if (_Grounded == true) idleAttackCollider.enabled = true;  // activate idle Attacking Collider
-            if (_Grounded == false) jumpAttackCollider.enabled = true; // activate jump attack colider
-            animator.GetComponent<Animator>().SetTrigger("Attacking");
 
-            StartCoroutine(CanAttack());
-        }
-        if (_CanAttack == true)
+        // Update is called once per frame
+        private void Update()
         {
-            idleAttackCollider.enabled = false;
-            jumpAttackCollider.enabled = false;
-        }
-    }
+            if (Input.GetButtonDown(pullOutWeapon))
+            {
+                pullOutSword = !pullOutSword;
+            }
 
-    IEnumerator CanAttack()
-    {
-        _CanAttack = false;
-        yield return new WaitForSeconds(_AttackCast);
-        _CanAttack = true;
+            if (Input.GetButtonDown(attack) && pullOutSword == true && canAttack == true)
+            {
+                if (grounded == true)
+                {
+                    IdleAttackCollider.enabled = true;  // activate idle Attacking Collider
+                }
+
+                if (grounded == false)
+                {
+                    JumpAttackCollider.enabled = true; // activate jump attack colider
+                }
+
+                Animator.GetComponent<Animator>().SetTrigger("Attacking");
+
+                StartCoroutine(CanAttack());
+            }
+            if (canAttack)
+            {
+                IdleAttackCollider.enabled = false;
+                JumpAttackCollider.enabled = false;
+            }
+        }
+
+        private IEnumerator CanAttack()
+        {
+            canAttack = false;
+            yield return new WaitForSeconds(AttackCast);
+            canAttack = true;
+        }
+
     }
-     
 }

@@ -1,23 +1,20 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityStandardAssets._2D;
+﻿using UnityEngine;
 
-public class PlayZone_Function : MonoBehaviour
+namespace Assets.Scripts.Singleplayer
 {
-
-    private void OnTriggerExit2D(Collider2D other)
+    public class PlayZone_Function : MonoBehaviour
     {
-        if (other.tag == ("Player"))
+        private void OnTriggerExit2D(Collider2D other)
         {
-            PlatformerCharacter2D player = other.GetComponent<PlatformerCharacter2D>();
-            player.take_HP(1000);
+            if (other.tag == ("Player"))
+            {
+                PlatformerCharacter2D player = other.GetComponent<PlatformerCharacter2D>();
+                player.TakeHp(1000);
+            }
+            else if (other.tag == "Spells")
+            {
+                Destroy(other.gameObject);
+            }
         }
-        else if (other.tag == "Spells")
-        {
-            Destroy(other.gameObject);
-        }
-
-
     }
 }
