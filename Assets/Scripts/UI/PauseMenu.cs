@@ -21,15 +21,7 @@ namespace Assets.Scripts.UI
                 paused = !paused;
             }
 
-            if (paused)
-            {
-                UIPause.SetActive(true);
-            }
-
-            else if (!paused)
-            {
-                UIPause.SetActive(false);
-            }
+            UIPause.SetActive(paused);
         }
 
         public void Resume()

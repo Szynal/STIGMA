@@ -1,39 +1,23 @@
 ﻿using UnityEngine;
 
-namespace Assets.uScripstsi.SinglePlayer.Character
+namespace Assets.Scripts.SinglePlayer.Character
 {
     [RequireComponent(typeof(Rigidbody2D))]
     public class CharacterPhysics : MonoBehaviour
     {
-        public bool Grounded
-        {
-            get { return grounded; }
-            set { grounded = value; }
-        }
+        public bool Grounded { get; set; }
+        public Rigidbody2D PhysicSimulation { get; set; }
+        public RaycastHit2D Hit { get; set; }
+        public const float GravityScale = 10;
 
         public float Mass;
-        public const float GravityScale = 9;
-
         public float MovementSpeed = 10f;
         public float JumpForce = 400f;
 
-        private Transform transform;
-        private Rigidbody2D rigidbody2D;
-        private RaycastHit2D raycastHit;
+        private bool facingRight = true;
+        private JumpState jumpState;
 
-        private readonly bool airControl = true;
-        private bool grounded = true;
-        private readonly CharacterState characterState;
-        private readonly JumpState jumpState;
-
-        public enum CharacterState
-        {
-            Idle,
-            Run,
-            Jump
-        }
-
-        public enum JumpState
+        private enum JumpState
         {
             Idle,
             Jump,
@@ -42,37 +26,59 @@ namespace Assets.uScripstsi.SinglePlayer.Character
 
         private void Start()
         {
-            transform = GetComponent<Transform>();
-            rigidbody2D = GetComponent<Rigidbody2D>();
+            PhysicSimulation = GetComponent<Rigidbody2D>();
             SetRigidbody2D();
         }
 
         private void SetRigidbody2D()
         {
-            if (rigidbody2D != null)
+            if (PhysicSimulation != null)
             {
-                rigidbody2D.mass = Mass;
-                rigidbody2D.gravityScale = GravityScale;
-                rigidbody2D.freezeRotation = true;
+                PhysicSimulation.mass = Mass;
+                PhysicSimulation.gravityScale = GravityScale;
+                PhysicSimulation.freezeRotation = true;
             }
             else
             {
-                Debug.LogWarning("Rigidbody2D is null");
+                Debug.LogWarning("CharacterRigidbody is null");
             }
         }
 
         private void CheckGrounding()
         {
-            raycastHit = Physics2D.Raycast(transform.position, Vector3.down, transform.position.y + 1f);
+            Hit = Physics2D.Raycast(transform.position, Vector3.down);
             Debug.DrawRay(transform.position, Vector3.down, Color.red, 5f); // Only for test
-            if (raycastHit.collider != null)
+            Grounded = Hit.collider != null ? true : false;
+
+            if (Grounded)
             {
-                grounded = true;
+                jumpState = JumpState.Idle;
             }
-            else
+        }
+
+        public void Jump()
+        {
+            CheckGrounding();
+            if (jumpState == JumpState.AirJump)
             {
-                grounded = true;
+                return;
             }
+
+            PhysicSimulation.AddForce(new Vector2(0f, JumpForce - (Mass * (PhysicSimulation.velocity.y / Time.deltaTime))));
+            jumpState++;
+        }
+
+        public void Move(float move)
+        {
+            PhysicSimulation.velocity = new Vector2(move * MovementSpeed, PhysicSimulation.velocity.y);
+        }
+
+        public void Flip()
+        {
+            facingRight = !facingRight;
+            var theScale = transform.localScale;
+            theScale.x *= -1;
+            transform.localScale = theScale;
         }
     }
 }
