@@ -5,72 +5,152 @@ namespace Assets.Scripts.SinglePlayer.Character
     [RequireComponent(typeof(Rigidbody2D))]
     public class CharacterPhysics : MonoBehaviour
     {
-        public bool Grounded { get; set; }
-        public Rigidbody2D PhysicSimulation { get; set; }
-        public RaycastHit2D Hit { get; set; }
-        public const float GravityScale = 10;
+        public bool Grounded { get; private set; }
+        public Rigidbody2D AttachedRigidbody { get; set; }
 
+        [Header("Physics")]
+        public float GravitationalAcceleration = 9.80665f;
         public float Mass;
-        public float MovementSpeed = 10f;
-        public float JumpForce = 400f;
+        public BoxCollider2D CharacterCollider;
 
+        [Header("Move")]
+        public float MoveAcceleration = 0.2f;
+        public float MoveMaxSpeed = 8;
+
+        [Header("Jump")]
+        public float JumpAcceleration = 2;
+
+        private int collisions;
         private bool facingRight = true;
-        private JumpState jumpState;
 
-        private enum JumpState
+        public JumpState jumpState;
+        public enum JumpState
         {
-            Idle,
+            Grounded,
             Jump,
             AirJump
         }
 
-        private void Start()
+        private void Awake()
         {
-            PhysicSimulation = GetComponent<Rigidbody2D>();
+            if (CharacterCollider == null)
+            {
+                Debug.LogError(" BoxCollider2D is required");
+            }
+
+            AttachedRigidbody = GetComponent<Rigidbody2D>();
             SetRigidbody2D();
         }
 
+        #region InitializationRigidbody
         private void SetRigidbody2D()
         {
-            if (PhysicSimulation != null)
+            if (AttachedRigidbody != null)
             {
-                PhysicSimulation.mass = Mass;
-                PhysicSimulation.gravityScale = GravityScale;
-                PhysicSimulation.freezeRotation = true;
+                AttachedRigidbody.simulated = true;
+                AttachedRigidbody.mass = Mass;
+                AttachedRigidbody.drag = 0.1f;
+                AttachedRigidbody.angularDrag = 0.1f;
+                AttachedRigidbody.gravityScale = GravitationalAcceleration;
+                AttachedRigidbody.freezeRotation = true;
             }
             else
             {
                 Debug.LogWarning("CharacterRigidbody is null");
             }
         }
+        #endregion
 
-        private void CheckGrounding()
+        private void Start()
         {
-            Hit = Physics2D.Raycast(transform.position, Vector3.down);
-            Debug.DrawRay(transform.position, Vector3.down, Color.red, 5f); // Only for test
-            Grounded = Hit.collider != null ? true : false;
-
-            if (Grounded)
-            {
-                jumpState = JumpState.Idle;
-            }
+            CheckGrounded(); ;
         }
 
-        public void Jump()
+        public void Move(Vector3 moveDelta, bool jumpInput)
         {
-            CheckGrounding();
-            if (jumpState == JumpState.AirJump)
+            Vector3 velocity = AttachedRigidbody.velocity;
+            velocity.x = UpdateHorizontalVelocity(moveDelta, velocity);
+            velocity.x = ClampToMaxSpeed(velocity);
+            velocity.y = Jump(velocity, jumpInput);
+
+            AttachedRigidbody.velocity = velocity;
+
+            CharacterTurn(velocity.x);
+        }
+
+        private float UpdateHorizontalVelocity(Vector3 moveDelta, Vector3 velocity)
+        {
+            var goalAcceleration = transform.rotation * moveDelta.normalized * MoveAcceleration;
+            return velocity.x += goalAcceleration.x;
+        }
+
+        private float ClampToMaxSpeed(Vector3 velocity)
+        {
+            var horizontalVelocity = new Vector2(velocity.x, velocity.z);
+            if (horizontalVelocity.magnitude > MoveMaxSpeed)
+            {
+                velocity.x *= MoveMaxSpeed / horizontalVelocity.magnitude;
+            }
+
+            return velocity.x;
+        }
+
+        private float Jump(Vector3 velocity, bool jumpInput)
+        {
+            CheckGrounded();
+
+            if (!jumpInput || jumpState == JumpState.AirJump)
+            {
+                return velocity.y;
+            }
+
+            if (jumpState == JumpState.Grounded)
+            {
+                jumpState++;
+                return velocity.y += JumpAcceleration;
+            }
+
+            if (jumpState == JumpState.Jump)
+            {
+                AttachedRigidbody.AddForce(new Vector2(0f, (AttachedRigidbody.mass * (velocity.y + JumpAcceleration / Time.deltaTime))));
+                jumpState++;
+            }
+
+            return velocity.y;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            collisions++;
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            collisions--;
+        }
+
+        private void CheckGrounded()
+        {
+            Grounded = (collisions > 0 && Physics.Raycast(transform.position, Vector3.down));
+            Debug.DrawRay(transform.position, Vector3.down, Color.cyan);
+            if (!Grounded)
             {
                 return;
             }
 
-            PhysicSimulation.AddForce(new Vector2(0f, JumpForce - (Mass * (PhysicSimulation.velocity.y / Time.deltaTime))));
-            jumpState++;
+            jumpState = JumpState.Grounded;
         }
 
-        public void Move(float move)
+        private void CharacterTurn(float move)
         {
-            PhysicSimulation.velocity = new Vector2(move * MovementSpeed, PhysicSimulation.velocity.y);
+            if (move > 0 && !facingRight)
+            {
+                Flip();
+            }
+            else if (move < 0 && facingRight)
+            {
+                Flip();
+            }
         }
 
         public void Flip()
