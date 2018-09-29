@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 104593636}
   - component: {fileID: 104593635}
   - component: {fileID: 104593634}
+  - component: {fileID: 104593637}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -221,6 +222,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &104593637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 104593633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79217073818c59e48887e916453c6cd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Target: {fileID: 1864436606}
+  Damping: 1
+  LookAheadFactor: 3
+  LookAheadReturnSpeed: 0.5
+  LookAheadMoveThreshold: 0.1
 --- !u!1 &171538393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2902,6 +2919,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1864436606 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4482104837799814, guid: 7a06f8040fcd2b94c89547434b99f5b6,
+    type: 2}
+  m_PrefabInternal: {fileID: 2137608626}
 --- !u!1 &1968114255
 GameObject:
   m_ObjectHideFlags: 0
