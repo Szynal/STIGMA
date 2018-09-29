@@ -102,7 +102,7 @@ namespace Assets.Scripts.SinglePlayer.Character
             if (jumpInput && jumpState != JumpState.AirJump)
             {
                 Grounded = false;
-                AttachedRigidbody.AddForce(new Vector2(0f, (AttachedRigidbody.mass * ((AttachedRigidbody.velocity.y + JumpAcceleration) / Time.deltaTime))));
+                AttachedRigidbody.AddForce(new Vector2(0f, JumpAcceleration - (AttachedRigidbody.mass * (AttachedRigidbody.velocity.y / Time.deltaTime))));
                 jumpState++;
             }
         }
