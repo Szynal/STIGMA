@@ -6,7 +6,7 @@ namespace Assets.Scripts.SinglePlayer.Character
     {
         private CharacterPhysics physics;
         private bool jumpInput;
-        private Vector3 moveDelta;
+        private float moveDelta;
         private void Awake()
         {
             physics = GetComponent<CharacterPhysics>();
@@ -14,7 +14,7 @@ namespace Assets.Scripts.SinglePlayer.Character
 
         private void Update()
         {
-            moveDelta = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
+            moveDelta = Input.GetAxisRaw("Horizontal");
             jumpInput = Input.GetKeyDown(KeyCode.Space);
         }
 

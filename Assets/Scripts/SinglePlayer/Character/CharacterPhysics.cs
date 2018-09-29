@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+
 namespace Assets.Scripts.SinglePlayer.Character
 {
     [RequireComponent(typeof(Rigidbody2D))]
@@ -66,11 +67,11 @@ namespace Assets.Scripts.SinglePlayer.Character
             CheckGrounded(); ;
         }
 
-        public void Move(Vector3 moveDelta, bool jumpInput)
+        public void Move(float moveDelta, bool jumpInput)
         {
-            Vector3 velocity = AttachedRigidbody.velocity;
-            velocity.x = UpdateHorizontalVelocity(moveDelta, velocity);
-            velocity.x = ClampToMaxSpeed(velocity);
+            Vector2 velocity = AttachedRigidbody.velocity;
+            velocity.x = UpdateHorizontalVelocity(new Vector2(moveDelta,0), velocity);
+            velocity = ClampToMaxSpeed(velocity);
 
             CheckGrounded();
             if (jumpInput && jumpState != JumpState.AirJump)
@@ -82,21 +83,26 @@ namespace Assets.Scripts.SinglePlayer.Character
             CharacterTurn(velocity.x);
         }
 
-        private float UpdateHorizontalVelocity(Vector3 moveDelta, Vector3 velocity)
+        private float UpdateHorizontalVelocity(Vector2 moveDelta, Vector2 velocity)
         {
             var goalAcceleration = transform.rotation * moveDelta.normalized * MoveAcceleration;
             return velocity.x += goalAcceleration.x;
         }
 
-        private float ClampToMaxSpeed(Vector3 velocity)
+        private Vector2 ClampToMaxSpeed(Vector2 velocity)
         {
-            var horizontalVelocity = new Vector2(velocity.x, velocity.z);
-            if (horizontalVelocity.magnitude > MoveMaxSpeed)
+            var horizontalVelocity = velocity.x;
+            var verticalVelocity = velocity.y;
+            if (Mathf.Abs(horizontalVelocity) > MoveMaxSpeed)
             {
-                velocity.x *= MoveMaxSpeed / horizontalVelocity.magnitude;
+                velocity.x *= Mathf.Abs(MoveMaxSpeed / horizontalVelocity);
+            }
+            if (verticalVelocity < -(MoveMaxSpeed*2))
+            {
+                velocity.y *= -MoveMaxSpeed / verticalVelocity;
             }
 
-            return velocity.x;
+            return velocity;
         }
 
         private void Jump()
