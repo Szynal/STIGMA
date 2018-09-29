@@ -106,33 +106,32 @@ namespace Assets.Scripts.SinglePlayer.Character
 
             if (jumpState == JumpState.Grounded)
             {
-                jumpState++;
+                jumpState = JumpState.Jump;
                 return velocity.y += JumpAcceleration;
             }
 
             if (jumpState == JumpState.Jump)
             {
+                jumpState = JumpState.AirJump;
                 AttachedRigidbody.AddForce(new Vector2(0f, (AttachedRigidbody.mass * (velocity.y + JumpAcceleration / Time.deltaTime))));
-                jumpState++;
             }
 
             return velocity.y;
         }
 
-        private void OnCollisionEnter(Collision collision)
+        private void OnCollisionEnter2D(Collision2D collision)
         {
             collisions++;
         }
 
-        private void OnCollisionExit(Collision collision)
+        private void OnCollisionExit2D(Collision2D collision)
         {
             collisions--;
         }
 
         private void CheckGrounded()
         {
-            Grounded = (collisions > 0 && Physics.Raycast(transform.position, Vector3.down));
-            Debug.DrawRay(transform.position, Vector3.down, Color.cyan);
+            Grounded = (collisions > 0 && Physics2D.Raycast(transform.position, Vector3.down));
             if (!Grounded)
             {
                 return;
