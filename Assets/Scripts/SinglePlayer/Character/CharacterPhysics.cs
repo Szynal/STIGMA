@@ -136,7 +136,6 @@ namespace Assets.Scripts.SinglePlayer.Character
             {
                 return;
             }
-
             jumpState = JumpState.Grounded;
         }
 
