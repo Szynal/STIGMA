@@ -62,7 +62,8 @@ namespace Assets.Scripts.SinglePlayer.Camera
 
         private Vector3 CalculateNewPosition(Vector2 aheadTargetPosition)
         {
-            return Vector3.SmoothDamp(transform.position, aheadTargetPosition, ref currentVelocity, Damping);
+            var target = new Vector3(aheadTargetPosition.x, aheadTargetPosition.y, transform.position.z);
+            return Vector3.SmoothDamp(transform.position, target, ref currentVelocity, Damping);
         }
     }
 }
