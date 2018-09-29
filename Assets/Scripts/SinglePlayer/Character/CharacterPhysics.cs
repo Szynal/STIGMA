@@ -71,8 +71,12 @@ namespace Assets.Scripts.SinglePlayer.Character
             Vector3 velocity = AttachedRigidbody.velocity;
             velocity.x = UpdateHorizontalVelocity(moveDelta, velocity);
             velocity.x = ClampToMaxSpeed(velocity);
-            Jump(velocity, ref jumpInput);
 
+            CheckGrounded();
+            if (jumpInput && jumpState != JumpState.AirJump)
+            {
+                Jump();
+            }
             AttachedRigidbody.velocity = velocity;
 
             CharacterTurn(velocity.x);
@@ -95,16 +99,11 @@ namespace Assets.Scripts.SinglePlayer.Character
             return velocity.x;
         }
 
-        private void Jump(Vector3 velocity, ref bool jumpInput)
+        private void Jump()
         {
-            CheckGrounded();
-
-            if (jumpInput && jumpState != JumpState.AirJump)
-            {
-                Grounded = false;
-                AttachedRigidbody.AddForce(new Vector2(0f, JumpAcceleration - (AttachedRigidbody.mass * (AttachedRigidbody.velocity.y / Time.deltaTime))));
-                jumpState++;
-            }
+            Grounded = false;
+            jumpState++;
+            AttachedRigidbody.AddForce(new Vector2(0f, JumpAcceleration - (AttachedRigidbody.mass * (AttachedRigidbody.velocity.y / Time.deltaTime))));
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
