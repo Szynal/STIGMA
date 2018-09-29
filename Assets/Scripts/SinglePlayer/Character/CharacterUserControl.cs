@@ -15,7 +15,7 @@ namespace Assets.Scripts.SinglePlayer.Character
         private void Update()
         {
             moveDelta = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
-            jumpInput = Input.GetKey(KeyCode.Space);
+            jumpInput = Input.GetKeyDown(KeyCode.Space);
         }
 
         private void FixedUpdate()
