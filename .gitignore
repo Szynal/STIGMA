@@ -35,3 +35,4 @@ sysinfo.txt
 #_ReSharper
 /_ReSharper.*
 *.ReSharper.*
+Assembly-CSharp.csproj

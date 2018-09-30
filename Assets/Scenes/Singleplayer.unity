@@ -234,10 +234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 1864436606}
-  Damping: 1
-  LookAheadFactor: 3
-  LookAheadReturnSpeed: 0.5
-  LookAheadMoveThreshold: 0.1
+  Damping: 0.1
+  LookAheadFactor: 5
+  LookAheadReturnSpeed: 1
+  LookAheadMoveThreshold: 1
 --- !u!1 &171538393
 GameObject:
   m_ObjectHideFlags: 0
