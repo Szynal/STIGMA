@@ -84,7 +84,6 @@
     <Compile Include="Assets\Scripts\SinglePlayer\Old\Spell_1.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\Old\Spell_2.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\Old\Sword_DMG.cs" />
-    <Compile Include="Assets\Scripts\UI\MenuManager.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
