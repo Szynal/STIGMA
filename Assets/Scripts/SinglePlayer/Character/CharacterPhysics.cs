@@ -50,7 +50,7 @@ namespace Assets.Scripts.SinglePlayer.Character
             {
                 AttachedRigidbody.simulated = true;
                 AttachedRigidbody.mass = Mass;
-                AttachedRigidbody.drag = 0.1f;
+                //AttachedRigidbody.drag = 0.1f;
                 AttachedRigidbody.angularDrag = 0.1f;
                 AttachedRigidbody.gravityScale = GravitationalAcceleration;
                 AttachedRigidbody.freezeRotation = true;
@@ -130,6 +130,7 @@ namespace Assets.Scripts.SinglePlayer.Character
                 return;
             }
             jumpState = JumpState.Grounded;
+            AttachedRigidbody.velocity= new Vector2(AttachedRigidbody.velocity.x,0);
         }
 
         private void CharacterTurn(float move)

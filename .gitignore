@@ -36,3 +36,4 @@ sysinfo.txt
 /_ReSharper.*
 *.ReSharper.*
 Assembly-CSharp.csproj
+Assets/Materials/Standard.physicsMaterial2D
