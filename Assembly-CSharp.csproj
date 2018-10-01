@@ -61,6 +61,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\EditorScripts\GameManagerEditor.cs" />
     <Compile Include="Assets\Scripts\Multiplayer\MBackground.cs" />
     <Compile Include="Assets\Scripts\Multiplayer\MGameManager.cs" />
     <Compile Include="Assets\Scripts\Multiplayer\MGroundCheck.cs" />

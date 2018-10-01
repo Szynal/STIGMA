@@ -6,9 +6,9 @@ namespace Assets.Scripts.UI.InputSystem
 {
     public class InputKey : MonoBehaviour
     {
-        public KeyCode KeyCode { get; set; }
-        public string KeyName { get; set; }
-        public string DefaultInputValue { get; set; }
+        private KeyCode KeyCode { get; set; }
+        private string KeyName { get; set; }
+        private string DefaultInputValue { get; set; }
 
         /// <summary>
         /// Crete new Key Input for PlayerInputPreferences
