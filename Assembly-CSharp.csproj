@@ -85,7 +85,7 @@
     <Compile Include="Assets\Scripts\SinglePlayer\Old\Spell_2.cs" />
     <Compile Include="Assets\Scripts\SinglePlayer\Old\Sword_DMG.cs" />
     <Compile Include="Assets\Scripts\UI\GameManager.cs" />
-    <Compile Include="Assets\Scripts\UI\Input\InputKey.cs" />
+    <Compile Include="Assets\Scripts\UI\InputSystem\InputKey.cs" />
     <Compile Include="Assets\Scripts\UI\MenuScript.cs" />
     <Compile Include="Assets\Scripts\UI\PauseMenu.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />

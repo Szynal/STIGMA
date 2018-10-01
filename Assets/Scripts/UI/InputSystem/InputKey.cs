@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Input
+namespace Assets.Scripts.UI.InputSystem
 {
-    public class InputKey
+    public class InputKey : MonoBehaviour
     {
         public KeyCode KeyCode { get; set; }
         public string KeyName { get; set; }
         public string DefaultInputValue { get; set; }
-        public List<InputKey> InputKeys { get; set; }
 
         /// <summary>
         /// Crete new Key Input for PlayerInputPreferences
@@ -21,17 +20,11 @@ namespace Assets.Scripts.UI.Input
             KeyName = keyName;
             DefaultInputValue = defaultValue;
             KeyCode = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString(keyName, defaultValue));
-            AddNewInputKey(this);
         }
 
-        public void AddNewInputKey(InputKey inputKey)
+        public InputKey GetInputKeyByNeme(string name, List<InputKey> inputKeys)
         {
-            InputKeys.Add(inputKey);
-        }
-
-        public InputKey GetInputKeyByNeme(string name)
-        {
-            foreach (var inputKey in InputKeys)
+            foreach (var inputKey in inputKeys)
             {
                 if (inputKey.KeyName == name)
                 {
