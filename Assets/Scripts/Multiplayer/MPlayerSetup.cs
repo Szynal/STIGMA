@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 public class MPlayerSetup : NetworkBehaviour
 {
 
-    [SerializeField] Behaviour[] componentsToDisable;
+    [SerializeField] private Behaviour[] componentsToDisable;
     public NetworkAnimator networkAnimator;
 
     private void Start()
@@ -24,7 +24,7 @@ public class MPlayerSetup : NetworkBehaviour
         }
     }
 
-    void DisableComponents()
+    private void DisableComponents()
     {
         for (int i = 0; i < componentsToDisable.Length; i++)
         {
@@ -58,6 +58,6 @@ public class MPlayerSetup : NetworkBehaviour
         networkAnimator.SetParameterAutoSend(7, true);
         networkAnimator.SetParameterAutoSend(8, true);
 
-        GameManager.RegisterPlayer(netID, player);
+        MGameManager.RegisterPlayer(netID, player);
     }
 }
