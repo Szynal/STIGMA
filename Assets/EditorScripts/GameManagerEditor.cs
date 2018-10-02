@@ -8,26 +8,52 @@ namespace Assets.EditorScripts
     [CanEditMultipleObjects]
     public class GameManagerEditor : Editor
     {
-        [SerializeField] private readonly string keyName;
-        [SerializeField] private readonly string defaultInputValue;
+        public GameManager GameManagerScript;
+        public SerializedProperty InputKeys;
 
-        private SerializedProperty inputKeys;
+        // private readonly string keyName;
+        // private readonly string defaultValue;
 
+        private readonly Selection keyNameSelection;
+        private readonly Selection defaultValueSelection;
+
+        private readonly GUIStyle style;
         private void OnEnable()
         {
-            // Setup the SerializedProperties.
-            inputKeys = serializedObject.FindProperty("InputKeys");
+            InputKeys = serializedObject.FindProperty("InputKeys");
         }
 
         public override void OnInspectorGUI()
         {
             DrawDefaultInspector();
+            serializedObject.Update();
+            GameManagerScript = (GameManager)target;
 
-            GameManager myScript = (GameManager)target;
-            if (GUILayout.Button("Add InputKey"))
+            TextField("Key name: ");
+            TextField("Default value: ");
+            InputKeysButton("sdfsdf","asdfasdf");
+
+            serializedObject.ApplyModifiedProperties();
+        }
+
+        private void TextField(string label)
+        {
+            if (!Selection.activeGameObject)
             {
-                //     myScript.AddInputKey(keyName, defaultInputValue);
+                return;
+            }
+            Selection.activeGameObject.name = EditorGUILayout.TextField(label, Selection.activeGameObject.name);
+            this.Repaint();
+        }
+
+        private void InputKeysButton(string keyName, string defaultValue)
+        {
+            if (GUILayout.Button("Add new Input Keys"))
+            {
+                GameManagerScript.AddInputKey(keyName, defaultValue);
             }
         }
+
     }
 }
+

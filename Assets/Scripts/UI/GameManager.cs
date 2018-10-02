@@ -1,7 +1,5 @@
 ﻿using Assets.Scripts.UI.InputSystem;
-using System;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.UI
@@ -10,6 +8,10 @@ namespace Assets.Scripts.UI
     {
         public static GameManager GameManagerInstance;
         public List<InputKey> InputKeys;
+
+        private readonly string keyName;
+        private readonly string defaultValue;
+
         // DO ZMIANY 
         public KeyCode jump { get; set; }
         public KeyCode left { get; set; }
@@ -33,14 +35,9 @@ namespace Assets.Scripts.UI
             right = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("rightKey", "D"));
         }
 
-        private void AddInputKey(string keyName, string defaultValue)
+        public void AddInputKey(string keyName, string defaultValue)
         {
             InputKeys.Add(new InputKey(keyName, defaultValue));
-        }
-
-        internal void AddInputKey(SerializedProperty kyName, SerializedProperty defaultInputValue)
-        {
-            throw new NotImplementedException();
         }
     }
 }
