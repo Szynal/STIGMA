@@ -26,8 +26,10 @@ namespace Assets.EditorScripts
             serializedObject.Update();
             GameManagerScript = (GameManager)target;
 
-            KeyName = TextField(KeyName, "Key name: ");
-            DefaultValue = TextField(DefaultValue, "Default value: ");
+            //KeyName = TextField(KeyName, "Key name: ");
+            KeyName = EditorGUILayout.TextField("Key name: ", KeyName);
+            //DefaultValue = TextField(DefaultValue, "Default value: ");
+            DefaultValue = EditorGUILayout.TextField("Default value: ", DefaultValue);
             InputKeysButton(KeyName, DefaultValue);
 
             serializedObject.ApplyModifiedProperties();
