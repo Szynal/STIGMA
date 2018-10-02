@@ -11,11 +11,8 @@ namespace Assets.EditorScripts
         public GameManager GameManagerScript;
         public SerializedProperty InputKeys;
 
-        // private readonly string keyName;
-        // private readonly string defaultValue;
-
-        private readonly Selection keyNameSelection;
-        private readonly Selection defaultValueSelection;
+        public string KeyName;
+        public string DefaultValue;
 
         private readonly GUIStyle style;
         private void OnEnable()
@@ -29,21 +26,18 @@ namespace Assets.EditorScripts
             serializedObject.Update();
             GameManagerScript = (GameManager)target;
 
-            TextField("Key name: ");
-            TextField("Default value: ");
-            InputKeysButton("sdfsdf","asdfasdf");
+            KeyName = TextField(KeyName, "Key name: ");
+            DefaultValue = TextField(DefaultValue, "Default value: ");
+            InputKeysButton(KeyName, DefaultValue);
 
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void TextField(string label)
+        private string TextField(string filed, string label)
         {
-            if (!Selection.activeGameObject)
-            {
-                return;
-            }
-            Selection.activeGameObject.name = EditorGUILayout.TextField(label, Selection.activeGameObject.name);
+            filed = EditorGUILayout.TextField(label, Selection.activeGameObject.name);
             this.Repaint();
+            return filed;
         }
 
         private void InputKeysButton(string keyName, string defaultValue)
