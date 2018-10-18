@@ -16,10 +16,10 @@ namespace Assets.Scripts.UI
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Delete))
-            {
-                paused = !paused;
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Delete))
+            //{
+            //    paused = !paused;
+            //}
 
             UIPause.SetActive(paused);
         }

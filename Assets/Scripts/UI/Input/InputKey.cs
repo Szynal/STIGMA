@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.InputSystem
+namespace Assets.Scripts.UI.Input
 {
     public class InputKey : MonoBehaviour
     {
